@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+.env
+.env.*
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs & temp
+*.log
+kernel.errors.txt
+*.tmp
+
+# Large media (GitHub 100MB file limit)
+*.MOV
+*.mov
+*.mp4
+*.avi
+
+# Dataset archives (download separately or unzip locally)
+dataset/images/*.zip
+**/test.zip
+**/train.zip
+
+# Training outputs (regenerate with ml/train_yolo.py)
+runs/
+wandb/
+
+# Duplicate / backup folders
+version 1/
+static/history/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Optional: uncomment if you prefer not to track large 3D assets
+# static/models/*.glb

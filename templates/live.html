@@ -1,0 +1,1240 @@
+{% extends "layout.html" %}
+
+{% block title %}AI Agro Rover - Live Detection{% endblock %}
+
+{% block content %}
+<div class="streamlit-container">
+    <!-- Left Sidebar -->
+    <div class="streamlit-sidebar">
+        <h2 class="sidebar-title">Parameters</h2>
+        
+        <!-- Confidence Threshold -->
+        <div class="st-widget">
+            <label class="st-label">Confidence threshold</label>
+            <div class="st-slider-value-top text-danger" id="confValueTop">50</div>
+            <input type="range" class="st-slider" id="confidenceThreshold" min="0" max="100" value="50">
+            <div class="st-slider-labels">
+                <span>0</span>
+                <span>100</span>
+            </div>
+        </div>
+
+        <!-- Object Classes -->
+        <div class="st-widget">
+            <label class="st-label">Select object classes to include</label>
+            <div class="st-multiselect-container">
+                <div class="st-multiselect-box" id="multiselectBox">
+                    <!-- Tags will be injected here -->
+                    <div class="st-multiselect-input-area">
+                        <select id="objectClasses" class="st-hidden-select" multiple>
+                            <option value="weed" selected>weed</option>
+                            <option value="crop" selected>crop</option>
+                            <option value="person">person</option>
+                            <option value="bicycle">bicycle</option>
+                            <option value="car">car</option>
+                            <option value="motorcycle">motorcycle</option>
+                            <option value="airplane">airplane</option>
+                            <option value="bus">bus</option>
+                            <option value="train">train</option>
+                            <option value="truck">truck</option>
+                            <option value="boat">boat</option>
+                            <option value="traffic light">traffic light</option>
+                            <option value="fire hydrant">fire hydrant</option>
+                            <option value="stop sign">stop sign</option>
+                            <option value="parking meter">parking meter</option>
+                            <option value="bench">bench</option>
+                            <option value="bird">bird</option>
+                            <option value="cat">cat</option>
+                            <option value="dog">dog</option>
+                            <option value="horse">horse</option>
+                            <option value="sheep">sheep</option>
+                            <option value="cow">cow</option>
+                            <option value="elephant">elephant</option>
+                            <option value="bear">bear</option>
+                            <option value="zebra">zebra</option>
+                            <option value="giraffe">giraffe</option>
+                            <option value="backpack">backpack</option>
+                            <option value="umbrella">umbrella</option>
+                            <option value="handbag">handbag</option>
+                            <option value="tie">tie</option>
+                            <option value="suitcase">suitcase</option>
+                            <option value="frisbee">frisbee</option>
+                            <option value="skis">skis</option>
+                            <option value="snowboard">snowboard</option>
+                            <option value="sports ball">sports ball</option>
+                            <option value="kite">kite</option>
+                            <option value="baseball bat">baseball bat</option>
+                            <option value="baseball glove">baseball glove</option>
+                            <option value="skateboard">skateboard</option>
+                            <option value="surfboard">surfboard</option>
+                            <option value="tennis racket">tennis racket</option>
+                            <option value="bottle">bottle</option>
+                            <option value="wine glass">wine glass</option>
+                            <option value="cup">cup</option>
+                            <option value="fork">fork</option>
+                            <option value="knife">knife</option>
+                            <option value="spoon">spoon</option>
+                            <option value="bowl">bowl</option>
+                            <option value="banana">banana</option>
+                            <option value="apple">apple</option>
+                            <option value="sandwich">sandwich</option>
+                            <option value="orange">orange</option>
+                            <option value="broccoli">broccoli</option>
+                            <option value="carrot">carrot</option>
+                            <option value="hot dog">hot dog</option>
+                            <option value="pizza">pizza</option>
+                            <option value="donut">donut</option>
+                            <option value="cake">cake</option>
+                            <option value="chair">chair</option>
+                            <option value="couch">couch</option>
+                            <option value="potted plant">potted plant</option>
+                            <option value="bed">bed</option>
+                            <option value="dining table">dining table</option>
+                            <option value="toilet">toilet</option>
+                            <option value="tv">tv</option>
+                            <option value="laptop">laptop</option>
+                            <option value="mouse">mouse</option>
+                            <option value="remote">remote</option>
+                            <option value="keyboard">keyboard</option>
+                            <option value="cell phone">cell phone</option>
+                            <option value="microwave">microwave</option>
+                            <option value="oven">oven</option>
+                            <option value="toaster">toaster</option>
+                            <option value="sink">sink</option>
+                            <option value="refrigerator">refrigerator</option>
+                            <option value="book">book</option>
+                            <option value="clock">clock</option>
+                            <option value="vase">vase</option>
+                            <option value="scissors">scissors</option>
+                            <option value="teddy bear">teddy bear</option>
+                            <option value="hair drier">hair drier</option>
+                            <option value="toothbrush">toothbrush</option>
+                        </select>
+                        <i class="fas fa-chevron-down dropdown-icon" onclick="toggleDropdown()"></i>
+                    </div>
+                </div>
+                <div class="st-dropdown-menu" id="dropdownMenu" style="display: none;">
+                    <div class="st-dropdown-item" data-value="weed">weed</div>
+                    <div class="st-dropdown-item" data-value="crop">crop</div>
+                    <div class="st-dropdown-item" data-value="person">person</div>
+                    <div class="st-dropdown-item" data-value="bicycle">bicycle</div>
+                    <div class="st-dropdown-item" data-value="car">car</div>
+                    <div class="st-dropdown-item" data-value="motorcycle">motorcycle</div>
+                    <div class="st-dropdown-item" data-value="airplane">airplane</div>
+                    <div class="st-dropdown-item" data-value="bus">bus</div>
+                    <div class="st-dropdown-item" data-value="train">train</div>
+                    <div class="st-dropdown-item" data-value="truck">truck</div>
+                    <div class="st-dropdown-item" data-value="boat">boat</div>
+                    <div class="st-dropdown-item" data-value="traffic light">traffic light</div>
+                    <div class="st-dropdown-item" data-value="fire hydrant">fire hydrant</div>
+                    <div class="st-dropdown-item" data-value="stop sign">stop sign</div>
+                    <div class="st-dropdown-item" data-value="parking meter">parking meter</div>
+                    <div class="st-dropdown-item" data-value="bench">bench</div>
+                    <div class="st-dropdown-item" data-value="bird">bird</div>
+                    <div class="st-dropdown-item" data-value="cat">cat</div>
+                    <div class="st-dropdown-item" data-value="dog">dog</div>
+                    <div class="st-dropdown-item" data-value="horse">horse</div>
+                    <div class="st-dropdown-item" data-value="sheep">sheep</div>
+                    <div class="st-dropdown-item" data-value="cow">cow</div>
+                    <div class="st-dropdown-item" data-value="elephant">elephant</div>
+                    <div class="st-dropdown-item" data-value="bear">bear</div>
+                    <div class="st-dropdown-item" data-value="zebra">zebra</div>
+                    <div class="st-dropdown-item" data-value="giraffe">giraffe</div>
+                    <div class="st-dropdown-item" data-value="backpack">backpack</div>
+                    <div class="st-dropdown-item" data-value="umbrella">umbrella</div>
+                    <div class="st-dropdown-item" data-value="handbag">handbag</div>
+                    <div class="st-dropdown-item" data-value="tie">tie</div>
+                    <div class="st-dropdown-item" data-value="suitcase">suitcase</div>
+                    <div class="st-dropdown-item" data-value="frisbee">frisbee</div>
+                    <div class="st-dropdown-item" data-value="skis">skis</div>
+                    <div class="st-dropdown-item" data-value="snowboard">snowboard</div>
+                    <div class="st-dropdown-item" data-value="sports ball">sports ball</div>
+                    <div class="st-dropdown-item" data-value="kite">kite</div>
+                    <div class="st-dropdown-item" data-value="baseball bat">baseball bat</div>
+                    <div class="st-dropdown-item" data-value="baseball glove">baseball glove</div>
+                    <div class="st-dropdown-item" data-value="skateboard">skateboard</div>
+                    <div class="st-dropdown-item" data-value="surfboard">surfboard</div>
+                    <div class="st-dropdown-item" data-value="tennis racket">tennis racket</div>
+                    <div class="st-dropdown-item" data-value="bottle">bottle</div>
+                    <div class="st-dropdown-item" data-value="wine glass">wine glass</div>
+                    <div class="st-dropdown-item" data-value="cup">cup</div>
+                    <div class="st-dropdown-item" data-value="fork">fork</div>
+                    <div class="st-dropdown-item" data-value="knife">knife</div>
+                    <div class="st-dropdown-item" data-value="spoon">spoon</div>
+                    <div class="st-dropdown-item" data-value="bowl">bowl</div>
+                    <div class="st-dropdown-item" data-value="banana">banana</div>
+                    <div class="st-dropdown-item" data-value="apple">apple</div>
+                    <div class="st-dropdown-item" data-value="sandwich">sandwich</div>
+                    <div class="st-dropdown-item" data-value="orange">orange</div>
+                    <div class="st-dropdown-item" data-value="broccoli">broccoli</div>
+                    <div class="st-dropdown-item" data-value="carrot">carrot</div>
+                    <div class="st-dropdown-item" data-value="hot dog">hot dog</div>
+                    <div class="st-dropdown-item" data-value="pizza">pizza</div>
+                    <div class="st-dropdown-item" data-value="donut">donut</div>
+                    <div class="st-dropdown-item" data-value="cake">cake</div>
+                    <div class="st-dropdown-item" data-value="chair">chair</div>
+                    <div class="st-dropdown-item" data-value="couch">couch</div>
+                    <div class="st-dropdown-item" data-value="potted plant">potted plant</div>
+                    <div class="st-dropdown-item" data-value="bed">bed</div>
+                    <div class="st-dropdown-item" data-value="dining table">dining table</div>
+                    <div class="st-dropdown-item" data-value="toilet">toilet</div>
+                    <div class="st-dropdown-item" data-value="tv">tv</div>
+                    <div class="st-dropdown-item" data-value="laptop">laptop</div>
+                    <div class="st-dropdown-item" data-value="mouse">mouse</div>
+                    <div class="st-dropdown-item" data-value="remote">remote</div>
+                    <div class="st-dropdown-item" data-value="keyboard">keyboard</div>
+                    <div class="st-dropdown-item" data-value="cell phone">cell phone</div>
+                    <div class="st-dropdown-item" data-value="microwave">microwave</div>
+                    <div class="st-dropdown-item" data-value="oven">oven</div>
+                    <div class="st-dropdown-item" data-value="toaster">toaster</div>
+                    <div class="st-dropdown-item" data-value="sink">sink</div>
+                    <div class="st-dropdown-item" data-value="refrigerator">refrigerator</div>
+                    <div class="st-dropdown-item" data-value="book">book</div>
+                    <div class="st-dropdown-item" data-value="clock">clock</div>
+                    <div class="st-dropdown-item" data-value="vase">vase</div>
+                    <div class="st-dropdown-item" data-value="scissors">scissors</div>
+                    <div class="st-dropdown-item" data-value="teddy bear">teddy bear</div>
+                    <div class="st-dropdown-item" data-value="hair drier">hair drier</div>
+                    <div class="st-dropdown-item" data-value="toothbrush">toothbrush</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROI Section -->
+        <h2 class="sidebar-title mt-4">ROI</h2>
+        
+        <div class="st-widget">
+            <label class="st-label">x_min</label>
+            <div class="st-slider-value-top text-danger" id="roi_xmin_top">0.14</div>
+            <input type="range" class="st-slider" id="roi_xmin" min="0" max="100" value="14">
+            <div class="st-slider-labels">
+                <span>0.00</span>
+                <span>1.00</span>
+            </div>
+        </div>
+        
+        <div class="st-widget">
+            <label class="st-label">y_min</label>
+            <div class="st-slider-value-top text-danger" id="roi_ymin_top">0.15</div>
+            <input type="range" class="st-slider" id="roi_ymin" min="0" max="100" value="15">
+            <div class="st-slider-labels">
+                <span>0.00</span>
+                <span>1.00</span>
+            </div>
+        </div>
+        
+        <div class="st-widget">
+            <label class="st-label">x_max</label>
+            <div class="st-slider-value-top text-danger" id="roi_xmax_top" style="right: 23%;">0.77</div>
+            <input type="range" class="st-slider" id="roi_xmax" min="0" max="100" value="77">
+            <div class="st-slider-labels">
+                <span>0.00</span>
+                <span>1.00</span>
+            </div>
+        </div>
+        
+        <div class="st-widget">
+            <label class="st-label">y_max</label>
+            <div class="st-slider-value-top text-danger" id="roi_ymax_top" style="right: 6%;">0.94</div>
+            <input type="range" class="st-slider" id="roi_ymax" min="0" max="100" value="94">
+            <div class="st-slider-labels">
+                <span>0.00</span>
+                <span>1.00</span>
+            </div>
+        </div>
+
+        <!-- ESP32 Camera Section -->
+        <h2 class="sidebar-title mt-4">ESP32 Camera</h2>
+        
+        <div class="st-widget">
+            <label class="st-label">ESP32 IP Address</label>
+            <input type="text" id="esp32Url" class="st-input" placeholder="192.168.1.3" value="192.168.1.3">
+            <div style="margin-top: 12px; display: flex; gap: 8px;">
+                <button class="st-button" onclick="connectESP32Url()">Connect ESP32</button>
+                <button class="st-button-secondary" onclick="useWebcam()">Use PC Camera</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="streamlit-main">
+        <h1 class="main-title">AI Agro Rover Command Center</h1>
+        
+        <div class="mb-4">
+            <label class="st-label" style="font-weight: 400;">Upload an image</label>
+            <div class="st-file-uploader" onclick="document.getElementById('fileUpload').click()">
+                <div class="filename" id="uploadFilename">street.jpg</div>
+                <div class="browse-link">browse files</div>
+                <input type="file" id="fileUpload" style="display: none;" accept="image/*" onchange="handleFileUpload(event)">
+            </div>
+        </div>
+        
+        <!-- Live Camera Feed (Acts as processed image) -->
+        <div class="image-container mb-1" style="position: relative;">
+            <div id="feedStatusBadge" style="position: absolute; top: 15px; left: 15px; z-index: 10; padding: 6px 12px; border-radius: 6px; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                <div id="statusPulse" style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: pulse 2s infinite;"></div>
+                <span id="statusText" style="color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PC WEBCAM: ACTIVE</span>
+            </div>
+            <!-- Camera Test Button -->
+            <div style="position: absolute; top: 15px; right: 15px; z-index: 10;">
+                <button onclick="testCamera()" style="padding: 6px 12px; border-radius: 6px; background: rgba(34, 197, 94, 0.8); color: white; border: 1px solid rgba(34, 197, 94, 0.3); font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+                    Test Camera
+                </button>
+            </div>
+            <!-- For demo purposes, we retain the webcam feed and style it as the processed image -->
+            <img id="cameraFeed" src="{{ url_for('webcam_feed') }}" alt="Processed image">
+        </div>
+        <div class="text-center text-muted mb-4" style="font-family: monospace; font-size: 0.9em;">
+            Processed image / Live Video
+        </div>
+
+        <h3 class="section-title">All discovered objects</h3>
+        <div class="st-success-block" id="allObjectsBlock">
+            {'stop sign', 'car', 'person', 'bicycle'}
+        </div>
+
+        <h3 class="section-title mt-4">Filtered object count</h3>
+        <div id="filteredObjectCounts" class="filtered-counts">
+            <div class="count-item">car : 1</div>
+            <div class="count-item">person : 1</div>
+        </div>
+
+        <!-- ===== BIOMASS CLASSIFICATION PANEL ===== -->
+        <div id="biomassPanel" style="display:none; margin-top: 2rem;">
+            <h3 class="section-title" style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="background:#22c55e20;border:1px solid #22c55e55;border-radius:6px;padding:2px 8px;font-size:0.75rem;color:#22c55e;font-weight:800;">LIVE</span>
+                Weed Biomass Classification
+            </h3>
+            <p style="color:#888;font-size:0.85rem;margin-bottom:1rem;">Detected weeds are automatically categorized for optimal reuse: livestock feed, bio-slurry, or compost.</p>
+
+            <!-- Legend -->
+            <div style="display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
+                <span class="bm-badge feed">🐄 Feed</span>
+                <span class="bm-badge slurry">💧 Bio-Slurry</span>
+                <span class="bm-badge compost">♻️ Compost</span>
+            </div>
+
+            <!-- Detections List -->
+            <div id="biomassResults" class="biomass-results"></div>
+
+            <!-- Save Snapshot Controls -->
+            <div style="display:flex;align-items:center;gap:1rem;margin-top:1.5rem;">
+                <button class="save-btn" id="saveSnapshotBtn" onclick="saveSnapshot()">
+                    📷 Save Snapshot
+                </button>
+                <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;color:#666;cursor:pointer;">
+                    <input type="checkbox" id="autoSaveToggle" onchange="toggleAutoSave(this)"> Auto-save on detection
+                </label>
+                <span id="saveStatus" style="font-size:0.8rem;color:#22c55e;"></span>
+            </div>
+        </div>
+
+        <!-- ===== SAVED SNAPSHOTS GALLERY ===== -->
+        <div id="snapshotsGallery" style="display:none;margin-top:2rem;">
+            <h3 class="section-title">📁 Saved Detection Snapshots</h3>
+            <div id="snapshotsGrid" class="snapshots-grid"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Source Sans Pro', sans-serif;
+        color: #31333F;
+        background-color: #ffffff;
+    }
+    
+    /* Layout - Modern Responsive Design */
+    .streamlit-container {
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+        padding-top: 80px; /* Account for navbar */
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .streamlit-sidebar {
+        width: 320px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 2rem 1.5rem;
+        flex-shrink: 0;
+        height: 100vh;
+        overflow-y: auto;
+        border-right: 1px solid rgba(230, 233, 239, 0.3);
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .streamlit-main {
+        flex-grow: 1;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    /* Typography */
+    .sidebar-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #31333F;
+    }
+
+    .main-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 2rem;
+        color: #31333F;
+        text-align: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        margin-top: 1.5rem;
+        color: #31333F;
+    }
+
+    .st-label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        display: block;
+        color: #31333F;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+        .streamlit-container {
+            flex-direction: column;
+        }
+        
+        .streamlit-sidebar {
+            width: 100%;
+            height: auto;
+            border-right: none;
+            border-bottom: 1px solid rgba(230, 233, 239, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .streamlit-main {
+            padding: 1rem;
+        }
+        
+        .image-container {
+            min-height: 400px;
+            margin: 1rem 0;
+        }
+        
+        .image-container img {
+            min-height: 400px;
+        }
+        
+        .main-title {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .streamlit-sidebar {
+            padding: 1rem;
+        }
+        
+        .main-title {
+            font-size: 1.5rem;
+        }
+        
+        .image-container {
+            min-height: 300px;
+            border-radius: 12px;
+        }
+        
+        .image-container img {
+            min-height: 300px;
+            border-radius: 8px;
+        }
+    }
+
+    .text-danger {
+        color: #ff4b4b !important;
+    }
+
+    /* Widgets */
+    .st-widget {
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    /* Range Slider styled like Streamlit */
+    .st-slider-value-top {
+        position: absolute;
+        font-size: 0.85rem;
+        font-family: monospace;
+        margin-bottom: 2px;
+        transform: translateX(-50%);
+        top: 22px;
+    }
+    
+    #confValueTop { left: 50%; }
+    #roi_xmin_top { left: 14%; }
+    #roi_ymin_top { left: 15%; }
+
+    .st-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        background: #e6e9ef;
+        outline: none;
+        border-radius: 2px;
+        margin-top: 25px;
+        margin-bottom: 8px;
+    }
+
+    .st-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ff4b4b;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(255, 75, 75, 0.2);
+    }
+
+    .st-slider::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ff4b4b;
+        cursor: pointer;
+        border: none;
+    }
+
+    .st-slider-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: #31333F;
+        font-family: monospace;
+    }
+
+    /* Multiselect Box */
+    .st-multiselect-container {
+        position: relative;
+    }
+
+    .st-multiselect-box {
+        background: #ffffff;
+        border: 1px solid #dcdce0;
+        border-radius: 4px;
+        min-height: 40px;
+        padding: 4px 8px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+    }
+
+    .st-multiselect-box:hover {
+        border-color: #ff4b4b;
+    }
+
+    .st-multiselect-input-area {
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .st-hidden-select {
+        display: none;
+    }
+
+    .st-tag {
+        background: #ff4b4b;
+        color: white;
+        border-radius: 3px;
+        padding: 2px 6px;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .st-tag-close {
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+
+    .dropdown-icon {
+        color: #b0b3b8;
+        font-size: 0.8rem;
+    }
+
+    .st-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #dcdce0;
+        border-radius: 4px;
+        margin-top: 4px;
+        z-index: 100;
+        max-height: 200px;
+        overflow-y: auto;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .st-dropdown-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .st-dropdown-item:hover {
+        background: #f0f2f6;
+    }
+
+    /* File Uploader */
+    .st-file-uploader {
+        background-color: #f0f2f6;
+        border-radius: 4px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        border: 1px dashed transparent;
+        transition: border-color 0.2s ease;
+    }
+
+    .st-file-uploader:hover {
+        border-color: #ff4b4b;
+    }
+
+    .filename {
+        color: #8a8d93;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .browse-link {
+        color: #ff4b4b;
+        font-size: 0.9rem;
+    }
+
+    /* Image Container - Modern Design */
+    .image-container {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        justify-content: center;
+        margin: 1rem auto 2rem;
+        min-height: 600px;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .image-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Changed to contain for proper aspect ratio */
+        display: block;
+        min-height: 600px;
+        border-radius: 16px;
+        transition: transform 0.3s ease;
+    }
+
+    .image-container:hover img {
+        transform: scale(1.02);
+    }
+
+    /* Results */
+    .st-success-block {
+        background-color: #f0f9f4;
+        color: #28a745;
+        padding: 1rem;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 0.95rem;
+    }
+
+    .filtered-counts {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    /* Biomass Classification */
+    .bm-badge {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    .bm-badge.feed    { background: #dcfce7; color: #15803d; }
+    .bm-badge.slurry  { background: #dbeafe; color: #1d4ed8; }
+    .bm-badge.compost { background: #fef3c7; color: #92400e; }
+
+    .biomass-results {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .biomass-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: #f8fafc;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        border-left: 4px solid #ccc;
+    }
+
+    .biomass-card .bm-icon { font-size: 1.5rem; }
+    .biomass-card .bm-name { font-weight: 700; font-size: 0.95rem; color: #1e293b; }
+    .biomass-card .bm-use  { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 12px; }
+    .biomass-card .bm-desc { font-size: 0.82rem; color: #64748b; margin-top: 2px; }
+    .biomass-card .bm-conf { margin-left: auto; font-size: 0.8rem; color: #94a3b8; font-family: monospace; }
+
+    .bm-use.feed    { background: #dcfce7; color: #15803d; }
+    .bm-use.slurry  { background: #dbeafe; color: #1d4ed8; }
+    .bm-use.compost { background: #fef3c7; color: #92400e; }
+
+    /* Save Button */
+    .save-btn {
+        background: #ff4b4b;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 18px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    .save-btn:hover { opacity: 0.88; }
+
+    /* Snapshots Gallery */
+    .snapshots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+
+    .snapshot-item {
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #eee;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .snapshot-item:hover { transform: scale(1.04); box-shadow: 0 4px 15px rgba(0,0,0,0.12); }
+    .snapshot-item img { width: 100%; height: 110px; object-fit: cover; display: block; }
+    .snapshot-meta { padding: 6px 8px; font-size: 0.75rem; color: #64748b; background: #f8fafc; }
+    .snapshot-meta strong { display: block; color: #1e293b; font-size: 0.8rem; }
+
+    .st-input {
+        width: 100%;
+        padding: 8px 12px;
+        background: #ffffff;
+        border: 1px solid #dcdce0;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        color: #31333F;
+        transition: border-color 0.2s;
+    }
+    
+    .st-input:focus {
+        outline: none;
+        border-color: #ff4b4b;
+    }
+
+    .st-button {
+        background-color: #ff4b4b;
+        color: white;
+        border: 1px solid #ff4b4b;
+        border-radius: 4px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        flex: 1;
+        transition: opacity 0.2s;
+    }
+
+    .st-button:hover {
+        opacity: 0.9;
+    }
+
+    .st-button-secondary {
+        background-color: #ffffff;
+        color: #31333F;
+        border: 1px solid #dcdce0;
+        border-radius: 4px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        flex: 1;
+        transition: border-color 0.2s;
+    }
+
+    .st-button-secondary:hover {
+        border-color: #ff4b4b;
+        color: #ff4b4b;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    @keyframes pulse-blue {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(59, 130, 246, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    }
+</style>
+
+<script>
+    // Streamlit-like UI interactivity
+    
+    // Config state
+    let detectionSettings = {
+        confidence: 0.5,
+        classes: ['weed', 'crop'],  // Start with agricultural classes
+        roi: { x_min: 0.14, y_min: 0.15, x_max: 0.77, y_max: 0.94 }
+    };
+
+    // Initialize Sliders
+    function setupSlider(id, topId, multiplier = 1, isPercent = false) {
+        const slider = document.getElementById(id);
+        const topLabel = document.getElementById(topId);
+        
+        slider.addEventListener('input', function() {
+            let val = parseFloat(this.value);
+            let displayVal = isPercent ? (val / 100).toFixed(2) : val;
+            topLabel.textContent = displayVal;
+            
+            // Adjust position of top label
+            const percent = ((val - this.min) / (this.max - this.min)) * 100;
+            topLabel.style.left = `calc(${percent}% + (${8 - percent * 0.15}px))`;
+            
+            // Update settings
+            if(id === 'confidenceThreshold') {
+                detectionSettings.confidence = val / 100;
+            } else {
+                const key = id.replace('roi_', '');
+                detectionSettings.roi[key] = val / 100;
+            }
+            updateBackendSettings();
+        });
+        
+        // Initial positioning
+        slider.dispatchEvent(new Event('input'));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        setupSlider('confidenceThreshold', 'confValueTop', 1, false);
+        setupSlider('roi_xmin', 'roi_xmin_top', 1, true);
+        setupSlider('roi_ymin', 'roi_ymin_top', 1, true);
+        setupSlider('roi_xmax', 'roi_xmax_top', 1, true);
+        setupSlider('roi_ymax', 'roi_ymax_top', 1, true);
+        
+        renderTags();
+        setInterval(fetchDetectionStatus, 1000);
+        setInterval(loadSavedSnapshots, 5000); // Poll gallery every 5s
+        loadSavedSnapshots(); // Initial load
+    });
+
+    // Multiselect implementation
+    let selectedClasses = new Set(['weed', 'crop']);
+    
+    function toggleDropdown() {
+        const menu = document.getElementById('dropdownMenu');
+        menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    }
+
+    document.getElementById('multiselectBox').addEventListener('click', function(e) {
+        if(e.target.classList.contains('st-tag-close')) return;
+        toggleDropdown();
+    });
+
+    document.querySelectorAll('.st-dropdown-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const val = this.getAttribute('data-value');
+            selectedClasses.add(val);
+            detectionSettings.classes = Array.from(selectedClasses);
+            renderTags();
+            updateBackendSettings();
+            document.getElementById('dropdownMenu').style.display = 'none';
+        });
+    });
+
+    function removeTag(val) {
+        selectedClasses.delete(val);
+        detectionSettings.classes = Array.from(selectedClasses);
+        renderTags();
+        updateBackendSettings();
+    }
+
+    function renderTags() {
+        const box = document.getElementById('multiselectBox');
+        // Clear existing tags
+        const tags = box.querySelectorAll('.st-tag');
+        tags.forEach(t => t.remove());
+        
+        // Add current tags
+        Array.from(selectedClasses).forEach(cls => {
+            const tag = document.createElement('div');
+            tag.className = 'st-tag';
+            tag.innerHTML = `${cls} <span class="st-tag-close" onclick="removeTag('${cls}')">×</span>`;
+            box.insertBefore(tag, box.querySelector('.st-multiselect-input-area'));
+        });
+    }
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if(!e.target.closest('.st-multiselect-container')) {
+            document.getElementById('dropdownMenu').style.display = 'none';
+        }
+    });
+
+    // Backend communication
+    function updateBackendSettings() {
+        fetch('/update_detection_settings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'weed',  // Use weed model by default
+                confidence: detectionSettings.confidence,
+                classes: detectionSettings.classes,
+                roi: detectionSettings.roi
+            })
+        });
+    }
+
+    function fetchDetectionStatus() {
+        fetch('/detection_status')
+            .then(res => res.json())
+            .then(data => {
+                if (data.detections) {
+                    updateResultsUI(data.detections);
+                }
+            });
+    }
+
+    function updateResultsUI(detections) {
+        const allSet = new Set(detections.map(d => `'${d.class}'`));
+        const allArray = Array.from(allSet);
+        
+        const allObjectsBlock = document.getElementById('allObjectsBlock');
+        allObjectsBlock.textContent = allArray.length > 0 ? `{${allArray.join(', ')}}` : 'None';
+
+        const filteredCounts = {};
+        detections.forEach(det => {
+            if (selectedClasses.has(det.class)) {
+                filteredCounts[det.class] = (filteredCounts[det.class] || 0) + 1;
+            }
+        });
+
+        const filteredContainer = document.getElementById('filteredObjectCounts');
+        if (Object.keys(filteredCounts).length > 0) {
+            filteredContainer.innerHTML = Object.entries(filteredCounts)
+                .map(([cls, count]) => `<div class="count-item">${cls} : ${count}</div>`)
+                .join('');
+        } else {
+            filteredContainer.innerHTML = '<div class="count-item text-muted">No filtered objects detected</div>';
+        }
+
+        // BIOMASS CLASSIFICATION LOGIC
+        const biomassPanel = document.getElementById('biomassPanel');
+        const biomassResults = document.getElementById('biomassResults');
+        const weeds = detections.filter(d => d.biomass && d.biomass.use);
+        
+        if (weeds.length > 0) {
+            biomassPanel.style.display = 'block';
+            
+            // Deduplicate UI entries by tracking classes we already rendered
+            const rendered = new Set();
+            let html = '';
+            
+            weeds.forEach(w => {
+                const bmClass = w.class;
+                if(!rendered.has(bmClass)) {
+                    rendered.add(bmClass);
+                    const bio = w.biomass;
+                    const cssClass = bio.use.toLowerCase().replace(/slurry/, 'slurry').replace(/feed/, 'feed').replace(/compost/, 'compost');
+                    
+                    html += `
+                    <div class="biomass-card">
+                        <div class="bm-icon">${bio.icon}</div>
+                        <div>
+                            <div class="bm-name">${bmClass.toUpperCase()} <span class="bm-use ${cssClass}">${bio.use.toUpperCase()}</span></div>
+                            <div class="bm-desc">${bio.desc}</div>
+                        </div>
+                        <div class="bm-conf">${(w.confidence * 100).toFixed(1)}%</div>
+                    </div>`;
+                }
+            });
+            biomassResults.innerHTML = html;
+
+            // Auto-save logic
+            if (autoSaveEnabled && !isSaving) {
+                const now = Date.now();
+                if (now - lastAutoSaveTime > 10000) { // Limit auto-save to once every 10 sec
+                    lastAutoSaveTime = now;
+                    saveSnapshot();
+                }
+            }
+        } else {
+            biomassResults.innerHTML = '<div class="count-item text-muted">No usable agricultural biomass detected in frame.</div>';
+        }
+    }
+
+    // ================= SNAPSHOTS & AUTO-SAVE LOGIC =================
+    let autoSaveEnabled = false;
+    let isSaving = false;
+    let lastAutoSaveTime = 0;
+
+    function toggleAutoSave(checkbox) {
+        autoSaveEnabled = checkbox.checked;
+        const status = document.getElementById('saveStatus');
+        status.textContent = autoSaveEnabled ? "Auto-save active (10s cooldown)" : "";
+        status.style.color = autoSaveEnabled ? "#3b82f6" : "#666";
+    }
+
+    function saveSnapshot() {
+        if(isSaving) return;
+        isSaving = true;
+        const btn = document.getElementById('saveSnapshotBtn');
+        const status = document.getElementById('saveStatus');
+        
+        btn.textContent = "⏳ Saving...";
+        btn.style.opacity = "0.7";
+        
+        fetch('/save_detection', {
+            method: 'POST',
+            headers:{ 'Content-Type': 'application/json' },
+            body: JSON.stringify({ source: 'manual_save' }) // Optional metadata payload
+        })
+        .then(r => r.json())
+        .then(data => {
+            isSaving = false;
+            btn.textContent = "📷 Save Snapshot";
+            btn.style.opacity = "1";
+            if (data.success) {
+                status.textContent = `Saved: ${data.filename}`;
+                status.style.color = "#22c55e";
+                loadSavedSnapshots();
+                setTimeout(() => { if(!autoSaveEnabled) status.textContent = ""; }, 3000);
+            } else {
+                status.textContent = "Error saving";
+                status.style.color = "#ef4444";
+            }
+        });
+    }
+
+    function loadSavedSnapshots() {
+        fetch('/saved_detections')
+        .then(r => r.json())
+        .then(data => {
+            const gallery = document.getElementById('snapshotsGallery');
+            const grid = document.getElementById('snapshotsGrid');
+            
+            if (data && data.length > 0) {
+                gallery.style.display = 'block';
+                let html = '';
+                data.forEach(snap => {
+                    // Extract unique biomass/weeds from snap.detections if we want
+                    html += `
+                        <div class="snapshot-item" onclick="window.open('${snap.url}', '_blank')">
+                            <img src="${snap.url}" alt="${snap.filename}" loading="lazy">
+                            <div class="snapshot-meta">
+                                <strong>${snap.timestamp}</strong>
+                                ${snap.detections.length} objects
+                            </div>
+                        </div>
+                    `;
+                });
+                grid.innerHTML = html;
+            }
+        });
+    }
+
+    // File Upload handling
+    function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            document.getElementById('uploadFilename').textContent = file.name;
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            fetch('/process_image', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.detections) {
+                    updateResultsUI(data.detections);
+                    // Update image if backend provides a way, else rely on live feed
+                }
+            });
+        }
+    }
+
+    // Camera Feed switching functions
+    function connectESP32Url() {
+        const urlInput = document.getElementById('esp32Url');
+        let ip = urlInput.value.trim();
+        
+        console.log('ESP32 input:', ip); // Debug log
+        
+        if (ip) {
+            // Remove http/https or /stream just in case user pasted a full URL
+            ip = ip.replace('http://', '').replace('https://', '').replace('/stream', '');
+            
+            const feed = document.getElementById('cameraFeed');
+            
+            // Show loading state
+            urlInput.style.borderColor = '#ffc107';
+            
+            // First configure the ESP32 URL in backend
+            fetch('/esp32_configure', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    ip: ip,
+                    port: 80,
+                    resolution: 'FRAMESIZE_VGA',
+                    quality: 'HIGH'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('ESP32 Config Response:', data); // Debug log
+                
+                if (data.success) {
+                    // Now use the ESP32 feed with YOLO detection
+                    feed.src = '/esp32_feed';
+                    
+                    // Update Status Badge
+                    const badge = document.getElementById('feedStatusBadge');
+                    const pulse = document.getElementById('statusPulse');
+                    const text = document.getElementById('statusText');
+                    
+                    pulse.style.background = '#3b82f6';
+                    pulse.style.boxShadow = '0 0 10px #3b82f6';
+                    pulse.style.animation = 'pulse-blue 2s infinite';
+                    text.textContent = 'ESP32 FEED: ACTIVE';
+                    badge.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+
+                    // No rotation needed since it's handled in the backend now
+                    feed.style.transform = 'none';
+                    feed.style.transition = 'transform 0.3s ease';
+                    
+                    // Provide visual feedback of successful connection
+                    urlInput.style.borderColor = '#28a745';
+                    setTimeout(() => urlInput.style.borderColor = '#dcdce0', 1000);
+                } else {
+                    // Show error
+                    urlInput.style.borderColor = '#dc3545';
+                    setTimeout(() => urlInput.style.borderColor = '#dcdce0', 2000);
+                    console.error('ESP32 Config Error:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('ESP32 Connection Error:', error);
+                urlInput.style.borderColor = '#dc3545';
+                setTimeout(() => urlInput.style.borderColor = '#dcdce0', 2000);
+            });
+        } else {
+            // Show error for empty URL
+            urlInput.style.borderColor = '#dc3545';
+            setTimeout(() => urlInput.style.borderColor = '#dcdce0', 2000);
+        }
+    }
+
+    function useWebcam() {
+        const feed = document.getElementById('cameraFeed');
+        feed.src = "{{ url_for('webcam_feed') }}";
+        
+        // Update status
+        const statusText = document.getElementById('statusText');
+        const statusPulse = document.getElementById('statusPulse');
+        statusText.textContent = 'PC WEBCAM: ACTIVE';
+        statusPulse.style.background = '#22c55e';
+    }
+    
+    function testCamera() {
+        console.log('🔍 Testing camera directly...');
+        
+        const feed = document.getElementById('cameraFeed');
+        const statusText = document.getElementById('statusText');
+        const statusPulse = document.getElementById('statusPulse');
+        
+        // Update status to testing
+        statusText.textContent = 'PC WEBCAM: TESTING';
+        statusPulse.style.background = '#ffc107';
+        
+        // Switch to camera test feed
+        feed.src = '/camera_test';
+        
+        // Revert back after 10 seconds
+        setTimeout(() => {
+            console.log('🔄 Switching back to regular feed...');
+            feed.src = "{{ url_for('webcam_feed') }}";
+            statusText.textContent = 'PC WEBCAM: ACTIVE';
+            statusPulse.style.background = '#22c55e';
+        }, 10000);
+    }
+
+    // Update Status Badge
+    function updateStatusBadge() {
+        const badge = document.getElementById('feedStatusBadge');
+        const pulse = document.getElementById('statusPulse');
+        const text = document.getElementById('statusText');
+        
+        pulse.style.background = '#22c55e';
+        pulse.style.boxShadow = '0 0 10px #22c55e';
+        pulse.style.animation = 'pulse 2s infinite';
+        text.textContent = 'PC WEBCAM: ACTIVE';
+        badge.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+        feed.style.transform = 'none';
+    }
+</script>
+{% endblock %}

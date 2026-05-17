@@ -1,0 +1,431 @@
+{% extends "layout.html" %}
+
+{% block title %}AI Agro Rover - Impact & Solutions{% endblock %}
+
+{% block content %}
+<div class="premium-container">
+    <div class="bg-glow green" style="top: -100px; right: -100px; width: 500px; height: 500px;"></div>
+    <div class="bg-glow blue" style="bottom: 10%; left: -5%; width: 400px; height: 400px;"></div>
+
+    <div class="page-header">
+        <h2 class="gradient-text">Our Solution & Impact</h2>
+        <p class="subtitle">
+            Moving beyond the binary choice of labor-intensive hand weeding vs. toxic chemicals. Introducing a third
+            way: <strong>Autonomous Integrated Management.</strong>
+        </p>
+    </div>
+
+    <!-- Core Solution Model -->
+    <div class="glass-card section-card">
+        <div class="card-header highlight-blue">
+            <h3><span class="icon neon-blue">🤖</span> The AI-Powered Autonomous Rover</h3>
+        </div>
+        <div class="content-body">
+            <p style="font-size: 1.15rem; margin-bottom: 2rem;">
+                The system resolves the yield-labor paradox by utilizing computer vision and precision robotics to
+                "pluck and store" weeds. This ensures irrigation water reaches the crop alone and completely mitigates
+                the reliance on hazardous chemicals.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div class="f-icon purple">👁️</div>
+                    <h4>Vision Engine (YOLOv8)</h4>
+                    <p>Trained on Ethiopian flora to distinguish between highly similar crops and 88 major weed species
+                        in real-time. Early detection prevents the "late weeding trap".</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="f-icon orange">⚙️</div>
+                    <h4>Servo-Controlled Claw</h4>
+                    <p>A mechanical claw uproots weeds without disturbing the shallow crop roots, avoiding soil
+                        toxification and preserving the plant intact for future biomass reuse.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="f-icon blue">💧</div>
+                    <h4>Smart Irrigation</h4>
+                    <p>Implements a hybrid decision model to prevent waterlogging. Correlates weed density with
+                        irrigation logic to never waste water on heavily infested zones.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2 mt-4">
+        <!-- Circular Economy -->
+        <div class="glass-card section-card highlight-green">
+            <div class="card-header border-green">
+                <h3><span class="icon neon-green">♻️</span> The "Second Life" of Weeds</h3>
+            </div>
+            <div class="content-body">
+                <p>The robotic "collect and store" mechanism transforms weeds from an agricultural threat into a
+                    valuable circular resource for the Ethiopian economy:</p>
+                <div class="benefit-list mt-3">
+                    <div class="b-item">
+                        <div class="b-dot green"></div>
+                        <div class="b-content">
+                            <strong>Animal Forage</strong>
+                            <span>Harvested early, weeds maintain high crude protein levels perfect for livestock
+                                nutrition.</span>
+                        </div>
+                    </div>
+                    <div class="b-item">
+                        <div class="b-dot green"></div>
+                        <div class="b-content">
+                            <strong>Biogas & Methane</strong>
+                            <span>Problematic biomass acts as fuel for anaerobic digestion.</span>
+                        </div>
+                    </div>
+                    <div class="b-item">
+                        <div class="b-dot green"></div>
+                        <div class="b-content">
+                            <strong>Bio-slurry Fertilizer</strong>
+                            <span>Byproducts yield higher harvests (169.43 kg/ha for teff vs 159.43 kg/ha
+                                mineral).</span>
+                        </div>
+                    </div>
+                    <div class="b-item">
+                        <div class="b-dot green"></div>
+                        <div class="b-content">
+                            <strong>Acidity Neutralization</strong>
+                            <span>Bio-slurry conditions Ethiopia's naturally acidic soils, returning vital Nitrogen and
+                                Phosphorus.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Water Productivity -->
+        <div class="glass-card section-card highlight-blue">
+            <div class="card-header border-blue">
+                <h3><span class="icon neon-blue">📈</span> Synergy: Water Productivity</h3>
+            </div>
+            <div class="content-body">
+                <p>Protecting the irrigation investments of Southern Ethiopian farmers is paramount.</p>
+                <div class="benefit-list mt-3">
+                    <div class="b-item">
+                        <div class="b-dot blue"></div>
+                        <div class="b-content">
+                            <strong>More Crop per Drop</strong>
+                            <span>High-efficiency automated weeding pushes physical water productivity up to 3.34 kg/m³
+                                instead of 2.4 kg/m³.</span>
+                        </div>
+                    </div>
+                    <div class="b-item">
+                        <div class="b-dot blue"></div>
+                        <div class="b-content">
+                            <strong>Scheduling Optimization</strong>
+                            <span>Moving to an optimized 9-day irrigation interval increases potato yields
+                                drastically.</span>
+                        </div>
+                    </div>
+                    <div class="b-item">
+                        <div class="b-dot blue"></div>
+                        <div class="b-content">
+                            <strong>Disease Mitigation</strong>
+                            <span>Robotic removal of weeds ensures proper soil aeration, preventing anaerobic conditions
+                                that cause root rot in clay loam soils.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conclusion Strip -->
+    <div class="glass-card final-strip mt-4">
+        <h3>Restoring the Organicity of the Landscape</h3>
+        <p>
+            Robotic weeding systems offer a dual benefit: they stop the "yield suicide" caused by late weeding for feed
+            and completely eliminate the environmental risks of herbicides. By precisely identifying and collecting
+            weeds, these robots turn a major agricultural threat into a sustainable source of feed, fuel, and
+            fertilizer.
+        </p>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+    .premium-container {
+        padding: 120px 2rem 4rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        font-family: 'Outfit', sans-serif;
+        color: #e2e8f0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .gradient-text {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff, #94a3b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+        letter-spacing: -1px;
+    }
+
+    .subtitle {
+        color: #94a3b8;
+        font-size: 1.15rem;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .bg-glow {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        z-index: 0;
+        opacity: 0.25;
+        pointer-events: none;
+    }
+
+    .bg-glow.green {
+        background: #22c55e;
+    }
+
+    .bg-glow.blue {
+        background: #3b82f6;
+    }
+
+    .glass-card {
+        background: rgba(17, 24, 39, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        z-index: 2;
+    }
+
+    .glass-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .section-card {
+        padding: 2.5rem;
+    }
+
+    .card-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-header.border-green {
+        border-bottom-color: rgba(34, 197, 94, 0.2);
+    }
+
+    .card-header.border-blue {
+        border-bottom-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .card-header h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #f8fafc;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .icon {
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+    }
+
+    .icon.neon-blue {
+        box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .icon.neon-green {
+        box-shadow: inset 0 0 15px rgba(34, 197, 94, 0.2);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .content-body p {
+        color: #cbd5e1;
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    .feature-box {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        border-radius: 16px;
+        padding: 2rem 1.5rem;
+        transition: transform 0.2s ease;
+    }
+
+    .feature-box:hover {
+        background: rgba(255, 255, 255, 0.02);
+        transform: translateY(-5px);
+    }
+
+    .f-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .f-icon.purple {
+        background: rgba(168, 85, 247, 0.1);
+    }
+
+    .f-icon.orange {
+        background: rgba(249, 115, 22, 0.1);
+    }
+
+    .f-icon.blue {
+        background: rgba(59, 130, 246, 0.1);
+    }
+
+    .feature-box h4 {
+        font-size: 1.2rem;
+        color: #f8fafc;
+        margin-bottom: 0.75rem;
+    }
+
+    .feature-box p {
+        font-size: 0.9rem;
+        color: #94a3b8;
+        line-height: 1.6;
+    }
+
+    .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .benefit-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .b-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .b-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-top: 6px;
+        flex-shrink: 0;
+    }
+
+    .b-dot.green {
+        background: #22c55e;
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    }
+
+    .b-dot.blue {
+        background: #3b82f6;
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+    }
+
+    .b-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .b-content strong {
+        color: #f8fafc;
+        font-size: 1.05rem;
+    }
+
+    .b-content span {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .highlight-green {
+        border-top: 4px solid #22c55e;
+    }
+
+    .highlight-blue {
+        border-top: 4px solid #3b82f6;
+    }
+
+    .final-strip {
+        padding: 3rem 4rem;
+        text-align: center;
+        background: linear-gradient(135deg, rgba(17, 24, 39, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .final-strip h3 {
+        font-size: 2rem;
+        color: #f8fafc;
+        margin-bottom: 1rem;
+    }
+
+    .final-strip p {
+        font-size: 1.1rem;
+        color: #cbd5e1;
+        line-height: 1.8;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .mt-3 {
+        margin-top: 1.5rem;
+    }
+
+    .mt-4 {
+        margin-top: 2rem;
+    }
+
+    @media (max-width: 968px) {
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+
+        .final-strip {
+            padding: 2rem;
+        }
+    }
+</style>
+{% endblock %}

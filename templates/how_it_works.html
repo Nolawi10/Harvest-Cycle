@@ -1,0 +1,780 @@
+{% extends "layout.html" %}
+
+{% block title %}AI Agro Rover - How It Works{% endblock %}
+
+{% block content %}
+<div class="premium-container">
+    <div class="bg-glow purple" style="top: -100px; left: -100px; width: 400px; height: 400px;"></div>
+    <div class="bg-glow blue" style="bottom: -100px; right: -100px; width: 400px; height: 400px;"></div>
+
+    <div class="page-header" style="text-align: center; margin-bottom: 3rem; margin-top: 5rem;">
+        <h2 class="gradient-text">System Architecture & Teardown</h2>
+        <p class="subtitle">Understand the hardware and software pipeline of the Autonomous Rover.</p>
+    </div>
+
+    <!-- Interactive Blueprint Explorer Section (Replaced by Block Diagram) -->
+    <div class="block-diagram-container" id="system-blueprint">
+        <div class="diagram-header">
+            <h2 class="diagram-title">INTEGRATED AGRICULTURAL ROBOTIC ECOSYSTEM & CIRCULAR ECONOMY</h2>
+        </div>
+
+        <!-- Section 1: Overview -->
+        <div class="diagram-section outline-blue">
+            <div class="section-badge">SYSTEM OVERVIEW</div>
+            <div class="grid-flow">
+                <div class="node blue">MAR FIELD DATA</div>
+                <div class="arrow">→</div>
+                <div class="node-group light-blue" style="width:180px;">
+                    <div class="group-title">1. FIELD DATA</div>
+                    <div class="node-row" style="flex-direction:row;width:100%;">
+                        <div class="node inner" style="flex:1;">AI WEED DETECTION</div>
+                        <div class="node inner" style="flex:1;">CROP TYPES<br><small>(e.g., POTATOES, TEFF)</small></div>
+                    </div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="node-group light-green">
+                    <div class="group-title">2. ROBOTIC AUTONOMY</div>
+                    <div class="node inner" style="width:100%;">SMART IRRIGATION</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="node-group light-orange">
+                    <div class="group-title">3. BIOMASS UTILIZATION</div>
+                    <div class="node inner" style="width:100%;">(CIRCULAR ECONOMY)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Architecture -->
+        <div class="diagram-section outline-gray">
+            <div class="section-badge">SYSTEM ARCHITECTURE: BLOCK DIAGRAM & FLOWS</div>
+            
+            <div class="arch-grid">
+                <!-- Input Sensors -->
+                <div class="arch-col outline-blue">
+                    <div class="box-title">INPUT SENSORS & VISION</div>
+                    <div class="node inner">FIELD SENSORS & VISUALS</div>
+                    <div class="arrow-down">↓</div>
+                    <div class="node inner">CROP TYPES<br><small>(POTATOES, TEFF, etc.)</small></div>
+                    <div class="arrow-down">↓</div>
+                    <div class="node inner">ROBOTIC ARM<br><small>(4 DOF SERVOS)</small></div>
+                </div>
+
+                <!-- Processing Units -->
+                <div class="arch-col outline-green flex-grow">
+                    <div class="box-title">PROCESSING & CONTROL UNITS</div>
+                    <div class="proc-row">
+                        <!-- ESP32 Vision -->
+                        <div class="node-stack">
+                            <div class="node inner blue">MCU/MPU<br><strong>ESP32-CAM</strong><br><small>(AI VISION)</small></div>
+                            <div class="arrow-down">↓</div>
+                            <div class="node inner gray">YOLOv8 MODEL</div>
+                        </div>
+                        
+                        <div class="arrow-text">Serial<br>Comms<br>↔</div>
+
+                        <!-- Arduino Uno -->
+                        <div class="node-stack flex-grow">
+                            <div class="node inner blue" style="width:100%;">MCU/MPU<br><strong>ARDUINO UNO</strong><br><small>(ROVER CONTROL)</small></div>
+                            <div class="flex-row">
+                                <div class="text-vertical" style="width:40px;">I2C<br>↘</div>
+                                <div class="sensor-stack">
+                                    <div class="node inner gray small-pad">GPS MODULE</div>
+                                    <div class="node inner gray small-pad">SOIL MOISTURE SENSOR</div>
+                                    <div class="node inner gray small-pad">DHT22</div>
+                                    <div class="node inner gray small-pad">MOTOR DRIVERS (4 WHEELS)</div>
+                                </div>
+                                <div class="text-vertical" style="width:40px;">PWM<br>Signals<br>↗</div>
+                            </div>
+                        </div>
+
+                        <div class="arrow-text">Serial<br>Comms<br>→</div>
+
+                        <!-- WiFi & Valorization -->
+                        <div class="node-stack">
+                            <div class="node inner blue">MCU/MPU<br><strong>ESP8266</strong><br><small>(WiFi GATEWAY)</small></div>
+                            <div class="arrow-down">↓</div>
+                            <div class="node inner white border-blue">☁ IOT CLOUD DASHBOARD</div>
+                        </div>
+                    </div>
+
+                    <!-- Valorization Station inside processing -->
+                    <div class="node-group outline-orange margin-top">
+                        <div class="box-title">VALORIZATION STATION (BIOMASS UTILIZATION)</div>
+                        <div class="proc-row align-center">
+                            <div class="sensor-stack">
+                                <div class="node inner light-green small-pad">LOAD CELL (WEIGHT)</div>
+                                <div class="node inner light-green small-pad">DS18B20 (TEMP)</div>
+                                <div class="node inner light-green small-pad">MQ-2 (GAS)</div>
+                            </div>
+                            <div class="arrow">→</div>
+                            <div class="node inner green main-node"><strong>ESP32</strong><br>(STATION CONTROLLER)</div>
+                            <div class="arrow">→</div>
+                            <div class="text-center"><small>BIOMASS<br>REUSE</small></div>
+                            <div class="arrow">→</div>
+                            <div class="sensor-stack">
+                                <div class="node inner light-orange small-pad">ANIMAL FEED (EARLY)</div>
+                                <div class="node inner light-orange small-pad">BIOGAS (METHANE)</div>
+                                <div class="node inner light-orange small-pad">BIO-SLURRY FERTILIZER</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- External Interfaces -->
+                <div class="arch-col outline-gray">
+                    <div class="box-title">EXTERNAL INTERFACES</div>
+                    <div class="interface-box" style="flex-direction:column; align-items: stretch;">
+                        <div class="node inner light-gray">MOBILE APP</div>
+                        <ul class="simple-list">
+                            <li>USER ALERTS</li>
+                            <li>Weeds Caught</li>
+                            <li>Irrigation Status</li>
+                        </ul>
+                    </div>
+                    <div class="interface-box" style="flex-direction:column; align-items: stretch; margin-top:20px;">
+                        <div class="node inner light-gray">WEB DASHBOARD</div>
+                        <ul class="simple-list">
+                            <li>USER ALERTS</li>
+                            <li>Irrigation Status</li>
+                            <li>Sensor Data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teardown 3D Interface -->
+    <div class="glass-card section-card highlight-blue">
+        <div class="card-header border-blue">
+            <h3><span class="icon neon-blue">🔧</span> Interactive Hardware Teardown</h3>
+        </div>
+
+        <div class="teardown-container mt-4">
+            <!-- 3D Viewer Area -->
+            <div class="teardown-viewer">
+                <model-viewer id="teardown-model" src="{{ url_for('static', filename='models/new_model.glb') }}"
+                    alt="AI Agro Rover 3D Model" auto-rotate camera-controls shadow-intensity="1" exposure="1"
+                    style="width: 100%; height: 100%; background-color: transparent;">
+                    <!-- Hotspots -->
+                    <button class="hotspot" slot="hotspot-esp32" data-position="0.4m 0.4m 0m" data-normal="0m 0m 1m"
+                        data-part="esp32">
+                        <div class="hotspot-annotation">ESP32-CAM</div>
+                    </button>
+                    <button class="hotspot" slot="hotspot-arduino" data-position="0m 0.3m 0m" data-normal="0m 1m 0m"
+                        data-part="arduino">
+                        <div class="hotspot-annotation">Arduino Uno</div>
+                    </button>
+                    <button class="hotspot" slot="hotspot-camera" data-position="0.5m 0.35m 0m" data-normal="0m 0m 1m"
+                        data-part="camera">
+                        <div class="hotspot-annotation">OV2640 Sensor</div>
+                    </button>
+                    <button class="hotspot" slot="hotspot-l298n" data-position="0.1m 0.2m 0.2m" data-normal="0m 1m 0m"
+                        data-part="l298n">
+                        <div class="hotspot-annotation">Motor Driver</div>
+                    </button>
+                    <button class="hotspot" slot="hotspot-chassis" data-position="0m 0.15m 0m" data-normal="0m 1m 0m"
+                        data-part="chassis">
+                        <div class="hotspot-annotation">4WD Chassis</div>
+                    </button>
+                    <button class="hotspot" slot="hotspot-arm" data-position="0.2m 0.5m 0.1m" data-normal="1m 0m 0m"
+                        data-part="arm-servos">
+                        <div class="hotspot-annotation">Robotic Arm</div>
+                    </button>
+                    <button class="hotspot" slot="hotspot-claw" data-position="0.6m 0.4m 0m" data-normal="1m 0m 0m"
+                        data-part="claw">
+                        <div class="hotspot-annotation">Servo Claw</div>
+                    </button>
+                    <button class="hotspot" slot="hotspot-basket" data-position="-0.4m 0.3m 0m" data-normal="-1m 0m 0m"
+                        data-part="basket">
+                        <div class="hotspot-annotation">Collection Basket</div>
+                    </button>
+                </model-viewer>
+
+                <div class="teardown-controls">
+                    <button id="btn-assembly" class="btn-glow">Start Assembly Sequence</button>
+                </div>
+            </div>
+
+            <!-- Side Panel Area -->
+            <div class="teardown-side"
+                style="background: rgba(0,0,0,0.2); border-radius: 16px; padding: 2rem; border: 1px solid rgba(255,255,255,0.03); display: flex; flex-direction: column; overflow-y: auto;">
+                <div
+                    style="border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 1rem;">
+                    <h3 id="part-title" style="font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin: 0;">Core
+                        Subsystems</h3>
+                </div>
+
+                <p id="part-description" style="color: #94a3b8; line-height: 1.6; margin-bottom: 1.5rem;">
+                    Select a component hotspot on the 3D model to view its direct technical blueprint and functionality
+                    within the rover.
+                </p>
+
+                <!-- Interactive Tour Controls -->
+                <div id="tour-controls"
+                    style="display: none; background: rgba(34,197,94,0.1); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(34,197,94,0.3); margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; gap: 1rem;">
+                        <button id="btn-prev" class="btn-glow flex-1"
+                            style="border-color: #4ade80; color: #4ade80; box-shadow: none; padding: 0.5rem 1rem;">&larr;
+                            Prev</button>
+                        <button id="btn-next" class="btn-glow flex-1"
+                            style="border-color: #4ade80; color: #4ade80; box-shadow: none; padding: 0.5rem 1rem;">Next
+                            &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- Manual Parts List -->
+                <div id="default-parts-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <div
+                        style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 0.5rem;">
+                        Control & Vision</div>
+                    <div class="part-item" data-part="esp32">
+                        <span style="font-weight: 600; color: #60a5fa;">ESP32-CAM</span>
+                        <span style="font-size: 0.8rem; color: #64748b;">Wireless Comms</span>
+                    </div>
+                    <div class="part-item" data-part="camera">
+                        <span style="font-weight: 600; color: #60a5fa;">OV2640 Sensor</span>
+                        <span style="font-size: 0.8rem; color: #64748b;">Optical Input</span>
+                    </div>
+
+                    <div
+                        style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 1rem;">
+                        Mechanics & Logic</div>
+                    <div class="part-item" data-part="arduino">
+                        <span style="font-weight: 600; color: #4ade80;">Arduino Uno</span>
+                        <span style="font-size: 0.8rem; color: #64748b;">Core Controller</span>
+                    </div>
+                    <div class="part-item" data-part="l298n">
+                        <span style="font-weight: 600; color: #4ade80;">L298N Driver</span>
+                        <span style="font-size: 0.8rem; color: #64748b;">Power Delivery</span>
+                    </div>
+
+                    <div
+                        style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 1rem;">
+                        Actuation</div>
+                    <div class="part-item" data-part="arm-servos">
+                        <span style="font-weight: 600; color: #c084fc;">Arm Servos</span>
+                        <span style="font-size: 0.8rem; color: #64748b;">Joint Movement</span>
+                    </div>
+                    <div class="part-item" data-part="claw">
+                        <span style="font-weight: 600; color: #c084fc;">Servo Gripper</span>
+                        <span style="font-size: 0.8rem; color: #64748b;">End Effector</span>
+                    </div>
+                    <div class="part-item" data-part="chassis">
+                        <span style="font-weight: 600; color: #c084fc;">4WD Chassis</span>
+                        <span style="font-size: 0.8rem; color: #64748b;">Drive Assembly</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Load Mermaid Script -> Avoid throwing errors before local DOM load -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize Mermaid mapping safely
+        try {
+            mermaid.initialize({ startOnLoad: true });
+        } catch (err) {
+            console.error("Mermaid error:", err);
+        }
+
+        const partData = {
+            'esp32': { title: 'ESP32-CAM', desc: 'The edge computing module handling Wi-Fi streaming and initial image capture.', orbit: '0deg 75deg 1.5m', target: '0m 0.4m 0m' },
+            'arduino': { title: 'Arduino Uno', desc: 'The main logic board executing commands received from the Flask server to control motors.', orbit: '180deg 70deg 1.2m', target: '0m 0.3m 0m' },
+            'camera': { title: 'OV2640 Sensor', desc: 'The optical input device feeding frames into the YOLOv8 neural network.', orbit: '0deg 80deg 1m', target: '0.5m 0.35m 0m' },
+            'l298n': { title: 'L298N Motor Driver', desc: 'Regulates high-current power from the battery to the 4 mechanical wheels.', orbit: '90deg 60deg 1m', target: '0.1m 0.2m 0.2m' },
+            'chassis': { title: '4WD Chassis', desc: 'The structural foundation housing all electronic and mechanical components.', orbit: '45deg 80deg 2m', target: '0m 0.15m 0m' },
+            'arm-servos': { title: 'Robotic Arm Servos', desc: 'Provides multi-axis articulation for extending the mechanical claw.', orbit: '-90deg 60deg 1.5m', target: '0.2m 0.5m 0.1m' },
+            'claw': { title: 'Servo Gripper', desc: 'The physical effector responsible for safely uprooting weed biomass.', orbit: '-45deg 70deg 1.2m', target: '0.6m 0.4m 0m' },
+            'basket': { title: 'Collection Basket', desc: 'Rear utility basket for storing collected biomass for bio-slurry conversion.', orbit: '180deg 60deg 1.8m', target: '-0.4m 0.3m 0m' }
+        };
+
+        const viewer = document.getElementById('teardown-model');
+        const titleEl = document.getElementById('part-title');
+        const descEl = document.getElementById('part-description');
+        const btnMode = document.getElementById('btn-assembly');
+        const tourControls = document.getElementById('tour-controls');
+        const defaultList = document.getElementById('default-parts-list');
+        const btnNext = document.getElementById('btn-next');
+        const btnPrev = document.getElementById('btn-prev');
+
+        let isAssemblyMode = false;
+        let currentStep = 0;
+
+        const tourSequence = [
+            { partId: 'chassis', text: 'STEP 1: Unpack and align the 4WD structural chassis base.' },
+            { partId: 'l298n', text: 'STEP 2: Mount the motor driver and connect the 4 DC motors.' },
+            { partId: 'arduino', text: 'STEP 3: Place the Arduino Uno logic board and wire the PWM outputs.' },
+            { partId: 'esp32', text: 'STEP 4: Mount the ESP32-CAM module to the front mast.' },
+            { partId: 'camera', text: 'STEP 5: Connect the OV2640 camera to the ESP module.' },
+            { partId: 'arm-servos', text: 'STEP 6: Attach the robotic arm servos securely.' },
+            { partId: 'claw', text: 'STEP 7: Fix the Servo Claw to the end of the manipulator.' },
+            { partId: 'basket', text: 'STEP 8: Lock the rear collection basket into place.' },
+            { partId: null, text: 'ASSEMBLY COMPLETE. Rover ready for deployment.', orbit: '0deg 75deg 3m', target: '0m 0m 0m' }
+        ];
+
+        function selectPart(partId) {
+            const data = partData[partId];
+            if (!data) return;
+
+            titleEl.innerHTML = `<span style="color: #60a5fa;">${data.title}</span>`;
+            descEl.innerText = data.desc;
+
+            if (viewer) {
+                viewer.cameraOrbit = data.orbit;
+                viewer.cameraTarget = data.target;
+            }
+
+            document.querySelectorAll('.part-item').forEach(i => i.style.background = 'rgba(255,255,255,0.02)');
+            const listItem = document.querySelector(`.part-item[data-part="${partId}"]`);
+            if (listItem) listItem.style.background = 'rgba(59, 130, 246, 0.2)';
+        }
+
+        document.querySelectorAll('.hotspot, .part-item').forEach(el => {
+            el.addEventListener('click', () => {
+                if (isAssemblyMode) return;
+                selectPart(el.dataset.part);
+            });
+        });
+
+        if (btnMode) {
+            btnMode.addEventListener('click', () => {
+                isAssemblyMode = !isAssemblyMode;
+                if (isAssemblyMode) {
+                    btnMode.innerText = "Exit Assembly Mode";
+                    btnMode.style.borderColor = "#ef4444";
+                    btnMode.style.color = "#ef4444";
+                    btnMode.style.boxShadow = "none";
+
+                    if (defaultList) defaultList.style.display = 'none';
+                    if (tourControls) tourControls.style.display = 'block';
+                    currentStep = 0;
+                    playTourStep();
+                } else {
+                    btnMode.innerText = "Start Assembly Sequence";
+                    btnMode.style.borderColor = "";
+                    btnMode.style.color = "";
+                    btnMode.style.boxShadow = "";
+
+                    if (defaultList) defaultList.style.display = 'flex';
+                    if (tourControls) tourControls.style.display = 'none';
+                    titleEl.innerHTML = `Core Subsystems`;
+                    descEl.innerText = `Select a component hotspot on the 3D model to view its direct technical blueprint and functionality within the rover.`;
+
+                    if (viewer) {
+                        viewer.cameraOrbit = 'auto auto auto';
+                        viewer.cameraTarget = 'auto auto auto';
+                    }
+                    document.querySelectorAll('.part-item').forEach(i => i.style.background = 'rgba(255,255,255,0.02)');
+                }
+            });
+        }
+
+        function playTourStep() {
+            const step = tourSequence[currentStep];
+            if (step.partId) {
+                selectPart(step.partId);
+                titleEl.innerHTML = `<span style="color: #4ade80;">Assembly Sequence</span>`;
+                descEl.innerText = step.text;
+            } else {
+                titleEl.innerHTML = `<span style="color: #4ade80;">Deployment Ready</span>`;
+                descEl.innerText = step.text;
+                if (viewer) {
+                    viewer.cameraOrbit = step.orbit;
+                    viewer.cameraTarget = step.target;
+                }
+            }
+
+            if (btnPrev) btnPrev.disabled = currentStep === 0;
+            if (btnNext) btnNext.innerHTML = currentStep === tourSequence.length - 1 ? 'Finish' : 'Next Step &rarr;';
+        }
+
+        if (btnNext) {
+            btnNext.addEventListener('click', () => {
+                if (currentStep < tourSequence.length - 1) {
+                    currentStep++;
+                    playTourStep();
+                } else {
+                    if (btnMode) btnMode.click();
+                }
+            });
+        }
+
+        if (btnPrev) {
+            btnPrev.addEventListener('click', () => {
+                if (currentStep > 0) {
+                    currentStep--;
+                    playTourStep();
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+    .premium-container {
+        padding: 0 2rem 4rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        font-family: 'Outfit', sans-serif;
+        color: #e2e8f0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .gradient-text {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff, #94a3b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+    }
+
+    .subtitle {
+        color: #94a3b8;
+        font-size: 1.15rem;
+    }
+
+    .bg-glow {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        z-index: 0;
+        opacity: 0.25;
+        pointer-events: none;
+    }
+
+    .bg-glow.purple {
+        background: #a855f7;
+    }
+
+    .bg-glow.blue {
+        background: #3b82f6;
+    }
+
+    .glass-card {
+        background: rgba(17, 24, 39, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 2;
+        padding: 2.5rem;
+    }
+
+    .card-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-header.border-purple {
+        border-bottom-color: rgba(168, 85, 247, 0.2);
+    }
+
+    .card-header.border-blue {
+        border-bottom-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .card-header h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #f8fafc;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0;
+    }
+
+    .icon {
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+    }
+
+    .icon.neon-purple {
+        box-shadow: inset 0 0 15px rgba(168, 85, 247, 0.2);
+        border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .icon.neon-blue {
+        box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .diagram-wrapper {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 2rem;
+        overflow-x: auto;
+    }
+
+    .mermaid {
+        display: flex;
+        justify-content: center;
+    }
+
+    .teardown-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        height: 600px;
+    }
+
+    .teardown-viewer {
+        position: relative;
+        background: radial-gradient(circle at center, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+    }
+
+    .teardown-controls {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        z-index: 10;
+    }
+
+    .btn-glow {
+        background: rgba(59, 130, 246, 0.1);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.4);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+
+    .btn-glow:hover {
+        background: rgba(59, 130, 246, 0.2);
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-glow:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+    .part-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .part-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .flex-1 {
+        flex: 1;
+    }
+
+    .hotspot {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: none;
+        background-color: rgba(59, 130, 246, 0.8);
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .hotspot:hover {
+        transform: scale(1.2);
+    }
+
+    .hotspot-annotation {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+        color: #e2e8f0;
+        display: block;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 500;
+        left: calc(100% + 1em);
+        max-width: 128px;
+        overflow-wrap: break-word;
+        padding: 0.5em 1em;
+        position: absolute;
+        top: 50%;
+        width: max-content;
+        transform: translateY(-50%);
+    }
+
+    @media (max-width: 968px) {
+        .teardown-container {
+            grid-template-columns: 1fr;
+            height: auto;
+        }
+
+        .teardown-viewer {
+            height: 400px;
+        }
+    }
+
+    .mt-4 {
+        margin-top: 2rem;
+    }
+
+    /* BLOCK DIAGRAM STYLES */
+    .block-diagram-container {
+        background: #f8fafc;
+        border-radius: 16px;
+        padding: 2rem;
+        color: #1e293b;
+        font-family: inherit;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        margin: 3rem 0;
+    }
+    .diagram-header { text-align: center; margin-bottom: 2.5rem; }
+    .diagram-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+    .diagram-section {
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        background: #ffffff;
+        position: relative;
+    }
+    .outline-blue { border: 2px solid #64748b; }
+    .outline-gray { border: 2px solid #cbd5e1; }
+    .outline-green { border: 2px solid #86efac; background: #f0fdf4; }
+    .outline-orange { border: 2px solid #fdba74; background: #fff7ed; }
+    
+    .section-badge {
+        position: absolute;
+        top: -12px;
+        left: 16px;
+        background: #f8fafc;
+        padding: 2px 10px;
+        font-weight: 800;
+        font-size: 0.85rem;
+        color: #1e293b;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+    }
+    
+    .grid-flow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-top: 10px;
+    }
+    
+    .node {
+        border-radius: 6px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 0.85rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #94a3b8;
+        line-height:1.3;
+    }
+    .node.blue { background: #bae6fd; color: #0f172a; border-color: #38bdf8; padding: 12px 15px; }
+    .node.light-blue { background: #e0f2fe; color: #0f172a; border: none; }
+    .node.green { background: #86efac; color: #064e3b; border-color: #4ade80; padding: 12px 15px;}
+    .node.light-green { background: #dcfce7; color: #064e3b; border-color:#86efac; }
+    .node.orange { background: #fed7aa; color: #7c2d12; border-color: #fdba74; padding: 12px 15px;}
+    .node.light-orange { background: #ffedd5; color: #7c2d12; border-color:#fdba74; }
+    .node.gray { background: #e2e8f0; color: #1e293b; border-color: #cbd5e1; }
+    .node.light-gray { background: #f1f5f9; color: #1e293b; border-color:#cbd5e1;}
+    .node.white { background: #ffffff; color: #0f172a; }
+    .border-blue { border: 2px solid #7dd3fc; }
+    
+    .node.inner { padding: 8px 12px; background: rgba(255,255,255,0.7); border:1px solid rgba(0,0,0,0.1); width:100%; box-sizing:border-box;}
+    .node.inner.blue {background: #bae6fd; border-color: #38bdf8;}
+    .node.inner.gray {background: #e2e8f0; border-color: #cbd5e1;}
+    .node.inner.light-green {background: #dcfce7; border-color:#86efac;}
+    .node.inner.green {background: #86efac; border-color:#4ade80;}
+    .node.inner.light-orange {background: #ffedd5; border-color:#fdba74;}
+    .node.small-pad { padding: 5px 8px; font-size: 0.75rem; border-radius: 4px; }
+    .node.main-node { padding: 15px 20px; font-size: 0.9rem; border-radius: 8px;}
+    
+    .arrow { font-size: 1.5rem; font-weight: bold; color: #64748b; font-family: monospace;}
+    .arrow-down { text-align: center; font-size: 1.2rem; font-weight: bold; color: #64748b; margin: 4px 0; font-family: monospace;}
+    
+    .node-group {
+        border: 2px solid #94a3b8;
+        border-radius: 6px;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f8fafc;
+    }
+    .node-group.light-blue { border-color:#7dd3fc; background: #e0f2fe; }
+    .node-group.light-green { border-color:#86efac; background: #dcfce7; }
+    .node-group.light-orange { border-color:#fdba74; background: #ffedd5; }
+    .group-title { font-size: 0.8rem; font-weight: 800; margin-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1); width: 100%; text-align: center; padding-bottom: 4px; color: #1e293b;}
+    .node-row { display: flex; gap: 8px; }
+    
+    .arch-grid { display: flex; gap: 1rem; align-items: stretch; margin-top:15px; flex-wrap:wrap;}
+    .arch-col { 
+        padding: 1.25rem; 
+        border-radius: 8px; 
+        background: #f8fafc;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .flex-grow { flex: 1; }
+    
+    .box-title { font-size: 0.85rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem; color:#0f172a;}
+    
+    .proc-row { display: flex; gap: 1rem; align-items: flex-start; justify-content: center; width: 100%; }
+    .proc-row.align-center { align-items: center; justify-content: space-around;}
+    .node-stack { display: flex; flex-direction: column; align-items: center; width:100%;}
+    .sensor-stack { display: flex; flex-direction: column; gap: 6px; width:100%;}
+    
+    .flex-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; justify-content:center; width:100%;}
+    .text-vertical { font-size: 0.7rem; font-weight: 700; color: #475569; text-align: center; }
+    .arrow-text { font-size: 0.75rem; font-weight: 700; color: #475569; text-align: center; align-self: flex-start; margin-top: 25px; line-height:1.2;}
+    
+    .margin-top { margin-top: 1.5rem; }
+    
+    .interface-box { display: flex; align-items: center; gap: 10px; background: #ffffff; border: 1px solid #cbd5e1; padding: 12px; border-radius: 6px; margin-bottom: 8px;}
+    .simple-list { margin: 0; padding-left: 20px; font-size: 0.8rem; color: #334155; font-weight:600; margin-top:10px;}
+    .simple-list li { margin-bottom: 4px; }
+    .text-center { text-align: center; font-weight: 800; font-size: 0.85rem; color:#1e293b;}
+</style>
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Weed Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-green-700">🌿 Advanced Weed Detection System</h1>
+            <p class="text-gray-600 mt-1">Leveraging AI to protect your crops</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- Control Panel -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold mb-4 border-b pb-2 text-green-600">Control Panel</h2>
+                
+                <!-- Webcam Option -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-medium mb-2">Real-Time Detection</h3>
+                    <p class="text-gray-600 mb-3">Use your webcam for live weed detection.</p>
+                    <a href="{% url 'start_stream' 'webcam' %}" class="w-full text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
+                        Start Webcam Feed
+                    </a>
+                </div>
+
+                <!-- Upload Option -->
+                <div>
+                    <h3 class="text-xl font-medium mb-2">Process a Video File</h3>
+                    <p class="text-gray-600 mb-3">Upload a video to detect weeds frame by frame.</p>
+                    <form action="{% url 'upload_video' %}" method="POST" enctype="multipart/form-data" class="space-y-3">
+                        {% csrf_token %}
+                        <input type="file" name="video" accept="video/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
+                            Upload and Process
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Video Stream Display -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold mb-4 border-b pb-2 text-green-600">Detection Feed</h2>
+                <div id="video-container" class="bg-gray-900 rounded-lg overflow-hidden aspect-video flex items-center justify-center">
+                    {% if stream_active %}
+                        <img id="video-stream" src="{% url 'video_feed' %}" alt="Video Stream">
+                    {% else %}
+                        <div id="placeholder" class="text-center text-gray-400">
+                            <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.55a2 2 0 01.45 2.99l-2.5 4A2 2 0 0115.5 18H8.5A2 2 0 016.5 16v-4a2 2 0 012-2h7zM6 10V6a2 2 0 012-2h3.5a2 2 0 012 2v4"></path></svg>
+                            <p class="mt-2">Video stream will appear here</p>
+                        </div>
+                    {% endif %}
+                </div>
+                {% if stream_active %}
+                    <a href="{% url 'stop_stream' %}" class="mt-4 w-full block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
+                        Stop Stream
+                    </a>
+                {% endif %}
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

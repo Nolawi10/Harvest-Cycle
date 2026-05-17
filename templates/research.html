@@ -1,0 +1,567 @@
+{% extends "layout.html" %}
+
+{% block title %}AI Agro Rover - Research & Evidence{% endblock %}
+
+{% block content %}
+<div class="premium-container">
+    <div class="bg-glow purple" style="top: -100px; left: -100px; width: 400px; height: 400px;"></div>
+    <div class="bg-glow blue" style="bottom: 20%; right: -10%; width: 500px; height: 500px;"></div>
+
+    <div class="page-header">
+        <h2 class="gradient-text">Research & Evidence</h2>
+        <p class="subtitle">
+            Based on the foundational paper: <strong>"Beyond Manual Control: A Robotic Solution for Integrated Weed Management and Precision Irrigation in Ethiopian Smallholder Systems"</strong>
+            <br><span style="font-size: 0.9em; opacity: 0.7;">Nolawi Hailu & Zakir Nuredin, April 2026</span>
+        </p>
+    </div>
+
+    <!-- The Weed Management Crisis -->
+    <div class="glass-card section-card relative-overflow">
+        <div class="card-header">
+            <h3><span class="icon neon-red">❗</span> 1. The Weed Management Crisis in Ethiopia</h3>
+        </div>
+        <div class="content-body">
+            <p>
+                Agriculture is the backbone of the Ethiopian economy, providing livelihood for over 80% of the population and nearly 40% of the national GDP. However, smallholder productivity is severely threatened by weed infestation.
+            </p>
+            
+            <div class="stats-row mt-4">
+                <div class="stat-box">
+                    <div class="stat-val text-red">87.5%</div>
+                    <div class="stat-lbl">Potential Maize Yield Loss</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val text-orange">70%</div>
+                    <div class="stat-lbl">Agricultural Labor Cost for Weeding</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val text-purple">100%</div>
+                    <div class="stat-lbl">Increase in Herbicide Use (2004-2014)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2 mt-4">
+        <!-- The Chemical Trap -->
+        <div class="glass-card section-card">
+            <div class="card-header">
+                <h3><span class="icon neon-orange">🧪</span> 2. The Chemical Trap & Soil Degradation</h3>
+            </div>
+            <div class="content-body">
+                <p>As labor becomes expensive, farmers have turned to chemical herbicides. While quick, this reliance creates severe systemic issues:</p>
+                <ul class="styled-list mt-3">
+                    <li><strong>Erosion of Soil Organicity:</strong> Chemical control displaces organic matter/biomass that traditional hoeing would return to the soil.</li>
+                    <li><strong>Health Hazards:</strong> Farmers often apply chemicals like 2,4-D without adequate respiratory or skin protection.</li>
+                    <li><strong>Non-Target Toxicity:</strong> Herbicides toxify non-target flora and reduce biodiversity among Ethiopia's broad-leaved species.</li>
+                    <li><strong>Disease Reservoirs:</strong> Dead biomass left by herbicides acts as a host for plant pathogens and insects.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- The Identification Challenge -->
+        <div class="glass-card section-card">
+            <div class="card-header">
+                <h3><span class="icon neon-blue">🔍</span> 3. The Flora Identification Challenge</h3>
+            </div>
+            <div class="content-body">
+                <p>A major hurdle for any weeding system is the immense complexity of Ethiopian weed flora:</p>
+                <ul class="styled-list mt-3">
+                    <li><strong>Extreme Diversity:</strong> Over 88 major weed species from 23 families identified in maize fields alone (66 broad-leaved).</li>
+                    <li><strong>Morphological Variance:</strong> The presence of highly varied annual (71 species) and perennial (17 species) weeds requires adaptive removal strategies.</li>
+                    <li><strong>The 'Late Weeding Trap':</strong> Farmers intentionally delay weeding so biomass grows large enough for livestock feed, committing "yield suicide" by letting weeds steal nutrients during critical crop growth stages.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Water Scarcity -->
+    <div class="glass-card section-card mt-4">
+        <div class="card-header">
+            <h3><span class="icon neon-blue">💧</span> 4. Water Scarcity & The "Water Thieves"</h3>
+        </div>
+        <div class="content-body">
+            <p>
+                Studies from the Worabe Agricultural Research Centre and SARI indicate that even with optimized irrigation scheduling (like a 9-day interval for potatoes), productivity is completely tied to field cleanliness. Weeds act as "water thieves," drastically reducing actual Water Productivity (WP).
+            </p>
+            <div class="water-stats mt-3">
+                <div class="w-stat">
+                    <span>Potential WP</span>
+                    <strong class="text-green">3.34 kg/m³</strong>
+                </div>
+                <div class="w-arrow">➔</div>
+                <div class="w-stat">
+                    <span>Infested WP</span>
+                    <strong class="text-red">2.4 kg/m³</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Evolution: Version 1 Prototype -->
+    <div class="glass-card section-card mt-4">
+        <div class="card-header border-green">
+            <h3><span class="icon neon-green">🚜</span> Project Evolution: Version 1 Prototype</h3>
+        </div>
+        <div class="content-body">
+            <p style="margin-bottom: 2rem;">
+                Before the YOLOv8-powered autonomous iteration, the journey began with the <strong>Version 1 Hardware Prototype</strong>. This phase focused on validating the 4WD chassis agility, mechanical durability, and remote telemetry basics in the field.
+            </p>
+            
+            <!-- Photo Grid -->
+            <div class="media-grid">
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v1/car.jpg') }}" alt="Rover V1 Prototype 1">
+                    <div class="media-overlay">Initial Build</div>
+                </div>
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v1/car1.jpg') }}" alt="Rover V1 Prototype 2">
+                    <div class="media-overlay">Chassis Test</div>
+                </div>
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v1/car2.jpg') }}" alt="Rover V1 Prototype 3">
+                    <div class="media-overlay">Power Assembly</div>
+                </div>
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v1/car3.jpg') }}" alt="Rover V1 Prototype 4">
+                    <div class="media-overlay">Field Ready</div>
+                </div>
+            </div>
+
+            <!-- Video Demo -->
+            <div class="video-showcase mt-4">
+                <div class="video-header">
+                    <span class="badge">LIVE DEMO</span>
+                    <h4>V1 Agility & Movement Test</h4>
+                </div>
+                <div class="video-container">
+                    <video controls poster="{{ url_for('static', filename='history/v1/car.jpg') }}">
+                        <source src="{{ url_for('static', filename='history/v1/IMG_4007.MOV') }}" type="video/quicktime">
+                        <source src="{{ url_for('static', filename='history/v1/IMG_4007.MOV') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Evolution: Version 2 -->
+    <div class="glass-card section-card mt-4">
+        <div class="card-header border-blue">
+            <h3><span class="icon neon-blue">🤖</span> Project Evolution: Version 2 (Current Generation)</h3>
+        </div>
+        <div class="content-body">
+            <p style="margin-bottom: 2rem;">
+                The <strong>Version 2 Upgrade</strong> transforms the agile V1 platform into a fully autonomous, intelligent agricultural unit. This generation integrates complex mechanical actuation with a high-accuracy neural network to actively manage fields.
+            </p>
+            
+            <div class="grid-2" style="margin-bottom: 2rem;">
+                <div class="feature-box">
+                    <h4 style="color: #3b82f6; margin-bottom: 0.5rem;">🦾 4-DOF Robotic Arm</h4>
+                    <p style="color: #cbd5e1; font-size: 0.95rem;">Upgraded from simple movement, the rover now features a 4 Degrees-of-Freedom arm with a servo-actuated claw, allowing for surgical weed extraction without disturbing surrounding crop roots.</p>
+                </div>
+                <div class="feature-box">
+                    <h4 style="color: #22c55e; margin-bottom: 0.5rem;">📦 Biomass Storage</h4>
+                    <p style="color: #cbd5e1; font-size: 0.95rem;">Unlike V1, this iteration features onboard containment bins. Extracted weeds are stored locally, allowing the rover to transport biomass to composting or livestock feed stations automatically.</p>
+                </div>
+                <div class="feature-box" style="grid-column: 1 / -1;">
+                    <h4 style="color: #a855f7; margin-bottom: 0.5rem;">🧠 YOLOv8 High-Accuracy Neural Engine</h4>
+                    <p style="color: #cbd5e1; font-size: 0.95rem;">The ESP32-CAM now feeds real-time video directly into a YOLOv8 detection model. With high-accuracy inference, the rover decisively categorizes plants as crops, grass, broadleaf, or fibrous weeds in milliseconds.</p>
+                </div>
+            </div>
+
+            <!-- V2 Photo Grid (Selected 6 photos) -->
+            <div class="media-grid">
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v2/photo_2026-04-13_18-35-03.jpg') }}" alt="Rover V2 Build 1">
+                    <div class="media-overlay">Chassis & Arm Integration</div>
+                </div>
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v2/photo_2026-04-13_18-35-16.jpg') }}" alt="Rover V2 Build 2">
+                    <div class="media-overlay">4-DOF Articulation</div>
+                </div>
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v2/photo_2026-04-13_18-35-23.jpg') }}" alt="Rover V2 Build 3">
+                    <div class="media-overlay">Storage Bin Architecture</div>
+                </div>
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v2/photo_2026-04-13_18-35-31.jpg') }}" alt="Rover V2 Build 4">
+                    <div class="media-overlay">Compute Module Deck</div>
+                </div>
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v2/photo_2026-04-13_18-35-38.jpg') }}" alt="Rover V2 Build 5">
+                    <div class="media-overlay">Sensor Array Mounting</div>
+                </div>
+                <div class="media-item">
+                    <img src="{{ url_for('static', filename='history/v2/photo_2026-04-13_18-35-45.jpg') }}" alt="Rover V2 Build 6">
+                    <div class="media-overlay">Field Ready Posture</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paper Embedding -->
+    <div class="glass-card section-card mt-4">
+        <div class="card-header border-purple">
+            <h3><span class="icon neon-purple">📄</span> Original Research Paper</h3>
+        </div>
+        <div class="content-body">
+            <p style="margin-bottom: 1.5rem;">Read the complete foundational paper detailing the robotic solution and integrated weed management strategies:</p>
+            <div class="pdf-container" style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                <iframe src="{{ url_for('static', filename='papers/main_paper.pdf') }}" width="100%" height="700px" style="border: none; background: rgba(255,255,255,0.9); display: block;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- References -->
+    <div class="glass-card reference-card mt-4">
+        <h4>Academic References</h4>
+        <ol class="styled-list">
+            <li>Hailu, N. & Nuredin, Z. (2026). "Beyond Manual Control: A Robotic Solution for Integrated Weed Management and Precision Irrigation in Ethiopian Smallholder Systems."</li>
+            <li>Wabela, K., Bekele, T., & Sule, M. A. (2023). "Effects of Irrigation Scheduling on Yield of Potato and Water Productivity, Southern, Ethiopia." International Journal on Food Agriculture and Natural Resources, 4(1), 18-22.</li>
+            <li>Allen, R. G., Pereira, L. S., Raes, D., & Smith, M. (1998). "Crop evapotranspiration - Guidelines for computing crop water requirements." FAO Irrigation and Drainage Paper 56.</li>
+        </ol>
+    </div>
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+.premium-container {
+    padding: 120px 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Outfit', sans-serif;
+    color: #e2e8f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+}
+
+.gradient-text {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: #94a3b8;
+    font-size: 1.15rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    opacity: 0.3;
+    pointer-events: none;
+}
+.bg-glow.purple { background: #a855f7; }
+.bg-glow.blue { background: #3b82f6; }
+.bg-glow.green { background: #22c55e; }
+
+.glass-card {
+    background: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.section-card {
+    padding: 2.5rem;
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.icon {
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+.icon.neon-red { box-shadow: inset 0 0 15px rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.3); }
+.icon.neon-orange { box-shadow: inset 0 0 15px rgba(249, 115, 22, 0.2); border: 1px solid rgba(249, 115, 22, 0.3); }
+.icon.neon-blue { box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.3); }
+
+.content-body p {
+    color: #cbd5e1;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.stat-box {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.stat-val {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-lbl {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.text-red { color: #f87171; }
+.text-orange { color: #fbbf24; }
+.text-purple { color: #c084fc; }
+.text-green { color: #4ade80; }
+
+.styled-list {
+    list-style: none;
+    padding: 0;
+}
+
+.styled-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.styled-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #3b82f6;
+    font-size: 1.5rem;
+    line-height: 1;
+    top: -2px;
+}
+
+.styled-list li strong {
+    color: #f8fafc;
+}
+
+.water-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.w-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.w-stat span {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.w-stat strong {
+    font-size: 2.5rem;
+}
+
+.w-arrow {
+    font-size: 2rem;
+    color: #475569;
+}
+
+.reference-card {
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.reference-card h4 {
+    color: #f8fafc;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.reference-card .styled-list li {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+
+.reference-card .styled-list li::before {
+    font-size: 1rem;
+    top: 2px;
+    color: #64748b;
+}
+
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.media-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.media-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.media-item:hover img {
+    transform: scale(1.1);
+}
+
+.media-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+}
+
+.media-item:hover .media-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.video-showcase {
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.video-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.badge {
+    padding: 4px 10px;
+    background: #ef4444;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.video-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.video-container video {
+    width: 100%;
+    display: block;
+    max-height: 500px;
+}
+
+.feature-box {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-header.border-green { border-bottom-color: rgba(34, 197, 94, 0.2); }
+.card-header.border-blue { border-bottom-color: rgba(59, 130, 246, 0.2); }
+.icon.neon-green { box-shadow: inset 0 0 15px rgba(34, 197, 94, 0.2); border: 1px solid rgba(34, 197, 94, 0.3); }
+
+@media (max-width: 968px) {
+    .grid-2, .stats-row { grid-template-columns: 1fr; }
+    .water-stats { flex-direction: column; gap: 1rem; }
+    .w-arrow { transform: rotate(90deg); }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}AI Agro Rover - Precision Agriculture{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-invertase">
+    <div class="container hero-split">
+        <!-- Left Content -->
+        <div class="hero-text-content">
+            <h1 class="hero-title-main">
+                Precision Agriculture.<br>
+                <span>Engineer excellence.</span>
+            </h1>
+            <p class="hero-subtitle">
+                We build advanced robotics to eliminate chemicals from the food chain.
+                Our AI-driven rover identifies and removes weeds with surgical precision,
+                empowering farmers to grow cleaner, healthier crops at scale.
+            </p>
+
+            <div class="hero-tech-stack">
+                <span class="tech-label">POWERED BY INDUSTRY LEADERS</span>
+                <div class="tech-logos">
+                    <div class="tech-logo-item">YOLOv8</div>
+                    <div class="tech-logo-item">ESP32</div>
+                    <div class="tech-logo-item">OPENCV</div>
+                    <div class="tech-logo-item">FLASK</div>
+                </div>
+            </div>
+
+            <div class="hero-actions">
+                <a href="/dashboard" class="btn btn-primary btn-pill">Launch Dashboard</a>
+                <a href="/how-it-works" class="link-explore">Explore the technology <span class="arrow">→</span></a>
+            </div>
+        </div>
+
+        <!-- Right Content: 3D Model with Aura -->
+        <div class="hero-visual">
+            <div class="model-aura-container">
+                <div class="aura-ring"></div>
+                <div class="aura-glow"></div>
+                <model-viewer src="{{ url_for('static', filename='models/new_model.glb') }}"
+                    alt="AI Agro Rover 3D Model" auto-rotate camera-controls shadow-intensity="1" exposure="0.8"
+                    disable-zoom style="width: 100%; height: 500px; --poster-color: transparent;">
+                </model-viewer>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sub-section: Features / Services -->
+<section class="services-overview">
+    <div class="container">
+        <h2 class="section-title-small">Our Core Capabilities</h2>
+        <div class="services-grid">
+            <div class="service-card-minimal">
+                <h3>Computer Vision</h3>
+                <p>Real-time plant classification using custom-trained neural networks on edge devices.</p>
+            </div>
+            <div class="service-card-minimal">
+                <h3>Precision Removal</h3>
+                <p>Mechanical weed extraction without harmful chemical runoff or soil degradation.</p>
+            </div>
+            <div class="service-card-minimal">
+                <h3>Cloud Analytics</h3>
+                <p>Aggregated field data providing insights into crop health and soil composition.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
