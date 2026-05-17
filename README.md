@@ -39,7 +39,7 @@ Harvest-Cycle/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Harvest-Cycle.git
+git clone https://github.com/Nolawi10/Harvest-Cycle.git
 cd Harvest-Cycle
 ```
 
