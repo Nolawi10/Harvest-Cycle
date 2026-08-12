@@ -1,165 +1,176 @@
-# 🌾 Harvest Cycle
+# Harvest Cycle
 
-> **An AI-powered precision agriculture system combining computer vision, IoT, smart irrigation, and circular biomass utilization.**
+<p align="center">
+  <img src="https://img.shields.io/badge/AI-PRECISION%20AGRICULTURE-2F855A?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Computer%20Vision-YOLOv11-111827?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/IoT-ESP32--CAM-00979D?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Backend-Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
+</p>
 
-Harvest Cycle explores how affordable AI and connected hardware can support more efficient and sustainable farming.
+<p align="center"><strong>An experimental precision-agriculture system connecting computer vision, IoT, irrigation intelligence, and circular biomass ideas.</strong></p>
 
-The system combines **YOLO-based weed detection**, **ESP32-CAM field monitoring**, **irrigation decision models**, and a web dashboard into one experimental precision-agriculture platform.
-
----
-
-## 🎥 Project Showcase
-
-> **Multimedia goes here:** add a 30–90 second demo video or GIF showing the camera feed, weed detection, dashboard, and hardware working together.
-
-| 🌱 AI Detection | 📡 Field Hardware | 💧 Smart Irrigation |
-|---|---|---|
-| YOLO-based weed/crop vision | ESP32-CAM + sensors | Rule-based / ML decisions |
-
-**Recommended media to add:**
-- `media/demo.gif` — short product demonstration
-- `media/dashboard.png` — dashboard screenshot
-- `media/weed-detection.png` — annotated detection result
-- `media/esp32cam.jpg` — physical hardware
-- `media/irrigation.jpg` — irrigation prototype
+<p align="center">
+  <a href="https://github.com/Nolawi10/Harvest-Cycle">Repository</a> ·
+  <a href="https://github.com/Nolawi10">Author</a>
+</p>
 
 ---
 
-## 🌱 The Problem
+## The Idea
 
-Agricultural productivity can be limited by inefficient weed management, unnecessary chemical use, and poorly timed irrigation. At the same time, removed plant biomass is often treated as waste instead of a potential resource.
+Agricultural decisions are often made with incomplete information. Harvest Cycle explores a different workflow: use affordable cameras and connected hardware to **observe the field, interpret what is happening, support decisions, and connect those decisions to practical actions**.
 
-Harvest Cycle was designed as an exploration of a different approach: **use computer vision and low-cost connected hardware to observe the field, support decisions, and connect those decisions to practical farm actions.**
+> **Observe → Understand → Decide → Act → Measure**
 
----
-
-## 💡 The Idea
-
-Harvest Cycle connects four stages:
-
-```text
-Field Camera / Sensors
-        ↓
-Computer Vision
-        ↓
-Decision & Classification
-        ↓
-Farm Action
-        ↓
-Monitoring & Feedback
-```
-
-The platform is intended to demonstrate how these components can work together rather than treating AI, IoT, and agriculture as separate systems.
+The project brings together AI, IoT, and agriculture instead of treating them as separate prototypes.
 
 ---
 
-## 🧠 How It Works
+## What It Combines
 
-### 1. 📷 Capture
-
-An **ESP32-CAM** or local USB camera provides field imagery. Sensor and device information can also be exchanged through HTTP endpoints.
-
-### 2. 🔎 Detect
-
-A **YOLOv11** model performs real-time computer-vision inference to identify relevant weeds/crops. The project also supports **OpenVINO** export for faster CPU-oriented inference.
-
-### 3. 🌿 Classify Biomass
-
-Detected weed types can be mapped to possible downstream uses such as:
-
-- Animal feed
-- Bio-slurry
-- Compost
-
-This creates the foundation for a circular biomass workflow rather than treating every removed plant as waste.
-
-### 4. 💧 Support Irrigation Decisions
-
-The `ml/irrigation_model.py` component provides rule-based and ML-oriented irrigation decision logic that can be connected to field measurements and future actuator control.
-
-### 5. 📊 Monitor
-
-A **Flask dashboard** provides live camera feeds, detection controls, saved snapshots, and system-status information.
-
----
-
-## 🏗️ System Architecture
-
-```text
-┌───────────────────┐
-│   FIELD INPUTS    │
-│ ESP32-CAM / Camera│
-│     + Sensors     │
-└─────────┬─────────┘
-          │
-          ▼
-┌───────────────────┐
-│    AI VISION      │
-│     YOLOv11       │
-│    + OpenVINO     │
-└─────────┬─────────┘
-          │
-          ▼
-┌────────────────────────┐
-│    DECISION LAYER       │
-│ Weed Classification     │
-│ Irrigation Decision     │
-└──────────┬─────────────┘
-           │
-     ┌─────┴──────────┐
-     ▼                ▼
-┌────────────┐  ┌───────────────┐
-│ Irrigation │  │ Biomass Use   │
-│ / Actuation│  │ Feed/Slurry/  │
-│            │  │ Compost       │
-└────────────┘  └───────────────┘
-           │
-           ▼
-┌──────────────────────┐
-│   FLASK DASHBOARD    │
-│ Live Feed • Analytics│
-│ Status • Snapshots   │
-└──────────────────────┘
-```
-
----
-
-## 🧰 Technology Stack
-
-| Layer | Technologies |
+| System | Role |
 |---|---|
-| Computer Vision | YOLOv11, OpenCV |
-| Edge Optimization | OpenVINO |
-| Machine Learning | Python, Ultralytics, custom ML scripts |
-| Backend | Flask |
-| Hardware | ESP32-CAM, USB camera |
-| Frontend | HTML, CSS, JavaScript |
-| 3D Visualization | GLB / browser-based 3D assets |
-| Data | YOLO-format image + label datasets |
+| **Computer Vision** | Detect relevant plants/weeds from camera imagery. |
+| **ESP32-CAM** | Provide an affordable field-camera path. |
+| **Irrigation Logic** | Support water-release decisions using available measurements. |
+| **Biomass Classification** | Explore useful downstream pathways for removed plant material. |
+| **Flask Dashboard** | Bring monitoring, detection, and controls into one interface. |
+| **OpenVINO** | Explore optimized CPU-oriented inference. |
 
 ---
 
-## 📁 Project Structure
+## System Flow
+
+```text
+                FIELD
+                  │
+        ┌─────────┴─────────┐
+        ▼                   ▼
+     CAMERA              SENSORS
+        │                   │
+        └─────────┬─────────┘
+                  ▼
+             AI / VISION
+                  │
+         ┌────────┴────────┐
+         ▼                 ▼
+   WEED / CROP         IRRIGATION
+    ANALYSIS            DECISION
+         │                 │
+         └────────┬────────┘
+                  ▼
+             FARM ACTION
+                  │
+                  ▼
+              DASHBOARD
+                  │
+                  ▼
+              FEEDBACK
+```
+
+---
+
+## How It Works
+
+### Capture
+
+An **ESP32-CAM** or local USB camera supplies field imagery. Device and sensor information can be exchanged through the project's integration layer.
+
+### Detect
+
+A **YOLOv11** model performs object detection. OpenCV handles image and video processing, while OpenVINO support provides an optimized inference path for compatible hardware.
+
+### Decide
+
+Detection results and available field information can feed irrigation and agricultural decision logic.
+
+### Monitor
+
+A **Flask dashboard** provides the web interface for camera feeds, detection controls, snapshots, and system information.
+
+### Explore Circular Use
+
+The project also investigates whether removed plant material can be classified for potential uses such as **compost, bio-slurry, or feed**, subject to proper agricultural and safety validation.
+
+---
+
+## Architecture
+
+```text
+┌───────────────────────┐
+│     FIELD INPUTS      │
+│ ESP32-CAM / USB Camera│
+│       + Sensors       │
+└───────────┬───────────┘
+            │
+            ▼
+┌───────────────────────┐
+│     AI VISION         │
+│      YOLOv11          │
+│      OpenCV           │
+│      OpenVINO         │
+└───────────┬───────────┘
+            │
+            ▼
+┌───────────────────────┐
+│    DECISION LAYER     │
+│ Weed Analysis         │
+│ Irrigation Logic      │
+│ Biomass Classification│
+└───────────┬───────────┘
+            │
+      ┌─────┴─────┐
+      ▼           ▼
+ Irrigation    Biomass
+  Actions       Pathways
+      │           │
+      └─────┬─────┘
+            ▼
+┌───────────────────────┐
+│     FLASK DASHBOARD   │
+│ Live Feed · Status    │
+│ Controls · Snapshots  │
+└───────────────────────┘
+```
+
+---
+
+## Technology
+
+<p align="center">
+<img src="https://skillicons.dev/icons?i=python,flask,opencv,arduino,github,vscode" />
+</p>
+
+**AI:** YOLOv11 · Ultralytics · OpenCV  
+**Inference:** OpenVINO  
+**Backend:** Flask / Python  
+**Hardware:** ESP32-CAM · USB camera  
+**Frontend:** HTML · CSS · JavaScript  
+**Data:** YOLO-format image/label datasets
+
+---
+
+## Project Structure
 
 ```text
 Harvest-Cycle/
-├── app.py                         # Flask application
-├── esp32_integration.py           # ESP32 camera/sensor routes
-├── esp32cam_livefeed_fixed.ino    # ESP32-CAM firmware
+├── app.py
+├── esp32_integration.py
+├── esp32cam_livefeed_fixed.ino
 ├── requirements.txt
-├── templates/                     # Web interface
-├── static/                        # Frontend assets and models
-├── ml/                            # Training, detection, irrigation ML
-├── dataset/                       # YOLO images, labels, configuration
-├── yolo11n.pt                     # Base YOLO weights
-└── yolo11n_openvino_model/        # OpenVINO model
+├── templates/
+├── static/
+├── ml/
+├── dataset/
+├── yolo11n.pt
+└── yolo11n_openvino_model/
 ```
 
 ---
 
-## 🧪 Machine Learning
+## Machine Learning
 
-The `ml/` directory contains the experimental ML workflow.
+The `ml/` directory contains the experimental training, detection, and irrigation workflows.
 
 ```bash
 cd ml
@@ -168,7 +179,7 @@ python detect.py --source 0
 python irrigation_model.py
 ```
 
-The dataset follows the YOLO structure:
+Dataset organization:
 
 ```text
 dataset/
@@ -182,50 +193,42 @@ dataset/
 └── data.yaml
 ```
 
-For reproducible research, model metrics such as **precision, recall, mAP, FPS, and inference latency** should be recorded here as experiments are finalized.
+### Reproducibility
 
-### 📊 Results
+The repository currently contains the model and dataset structure needed for further experiments. Performance should be reported from measured runs using a fixed model, dataset split, input resolution, and hardware configuration.
 
-| Metric | Result |
-|---|---:|
-| Detection model | YOLOv11 |
-| Classes | See dataset configuration |
-| Precision | _Add measured result_ |
-| Recall | _Add measured result_ |
-| mAP | _Add measured result_ |
-| CPU inference FPS | _Add measured result_ |
-| Hardware cost | _Add measured result_ |
+Recommended metrics:
 
-> **No performance numbers are claimed here until they are measured and documented.**
+**Precision · Recall · mAP50 · mAP50-95 · FPS · Latency · Model Size**
 
 ---
 
-## 🔌 Hardware
+## Hardware
 
-### Current hardware path
+### Current Integration
 
-- **ESP32-CAM** — field camera and HTTP stream
-- **USB webcam** — local development/testing
+- ESP32-CAM for camera connectivity
+- USB webcam for local development/testing
+- Computer running the Flask application and inference pipeline
 
-### Experimental / future hardware
+### Future Hardware
 
-- Automated irrigation actuator control
-- Robotic weed-removal integration
-- Additional environmental sensors
-
-The robotic-arm concept is represented in the system design, while direct GPIO/API actuator integration remains an area for further development.
+- Automated irrigation actuator
+- Environmental sensor network
+- Robotic weed-removal mechanism
+- Edge-compute deployment
 
 ---
 
-## 🚀 Run Locally
+## Run Locally
 
 ### Requirements
 
 - Python 3.10+
-- Webcam, or ESP32-CAM
 - Git
+- Webcam or ESP32-CAM
 
-### Installation
+### Setup
 
 ```bash
 git clone https://github.com/Nolawi10/Harvest-Cycle.git
@@ -249,79 +252,77 @@ Open:
 http://127.0.0.1:5000
 ```
 
-### Main routes
+### Main Routes
 
 | Route | Purpose |
 |---|---|
 | `/` | Project landing page |
 | `/dashboard` | Monitoring and controls |
-| `/live` | Live detection |
+| `/live` | Live detection interface |
 | `/how-it-works` | System explanation |
-| `/video_feed` | MJPEG camera stream |
+| `/video_feed` | Camera stream |
 
 ---
 
-## 📸 Multimedia Checklist
+## Multimedia
 
-To make this repository an admissions-ready project portfolio, the recommended media sequence is:
+The strongest way to understand Harvest Cycle is to see the system running.
 
-1. **Hero demo** — 30–90 second overview
-2. **Hardware photo** — ESP32-CAM / physical prototype
-3. **Detection screenshot** — bounding boxes and predictions
-4. **Dashboard screenshot** — live monitoring interface
-5. **System diagram** — end-to-end architecture
-6. **Results chart** — model performance or latency
-7. **Research poster** — if presented at a competition/conference
-8. **Demo presentation** — optional slide deck
+Recommended project showcase:
 
-Keep large videos out of Git history; link to a hosted demo/video when available.
-
----
-
-## 🌍 Why It Matters
-
-Harvest Cycle is an engineering experiment around **accessible precision agriculture**.
-
-The broader goal is to explore how AI can move beyond a prediction on a screen and become part of a connected physical system:
-
-> **See → Understand → Decide → Act → Measure**
-
-This approach can support future work in agricultural automation, resource efficiency, and sustainable farming systems.
+| Asset | What it should show |
+|---|---|
+| **Demo video** | Complete system flow from camera to dashboard. |
+| **Hardware photo** | ESP32-CAM and physical prototype. |
+| **Detection image** | YOLO bounding boxes and predictions. |
+| **Dashboard screenshot** | Monitoring interface and controls. |
+| **Architecture diagram** | AI + IoT + agriculture pipeline. |
+| **Results chart** | Measured model or system performance. |
+| **Research poster** | Competition/conference presentation where applicable. |
 
 ---
 
-## 🔬 Research Direction
+## Why It Matters
 
-Future development can investigate:
+Harvest Cycle is an exploration of **accessible precision agriculture**: using affordable hardware and AI to build systems that can operate closer to the field.
+
+The larger engineering question is:
+
+> **How can a low-cost intelligent system move from seeing a problem to helping act on it?**
+
+That question connects the project's computer vision, IoT, irrigation, and robotics directions.
+
+---
+
+## Research Directions
+
+Future experiments can investigate:
 
 - Larger and more diverse field datasets
-- Model benchmarking across devices
-- Edge inference latency and energy consumption
+- Local weed-species benchmarking
+- Model accuracy and latency across devices
+- Edge inference and energy consumption
 - Sensor-driven irrigation prediction
-- Automated actuator control
-- Weed-removal robotics
-- Quantitative water savings
+- Automatic actuator control
+- Quantified water savings
+- Robotic weed removal
 - Biomass conversion efficiency
-- Field trials under different crops and conditions
-
-The project is intentionally structured so that future experiments can replace assumptions with measured evidence.
+- Field trials across crops and environments
 
 ---
 
-## 👨🏾‍💻 Project
+## Development Status
 
-**Harvest Cycle** is part of my broader work exploring the intersection of **AI, robotics, agriculture, climate, and real-world engineering**.
+**Working AI + IoT agriculture prototype**
 
-**Developer:** [Nolawi Hailu](https://github.com/Nolawi10)
-
----
-
-## 🙏 Acknowledgments
-
-Built with [Ultralytics YOLO](https://github.com/ultralytics/ultralytics), [Flask](https://flask.palletsprojects.com/), [OpenCV](https://opencv.org/), and ESP32-CAM hardware.
+The repository provides the foundation for continued experimentation in computer vision, connected agriculture, and agricultural robotics.
 
 ---
 
-## 📄 License
+## License
 
-This project is provided for educational and research use. Add an explicit open-source license if you intend to distribute the code under specific terms.
+See the repository license for usage terms.
+
+---
+
+<p align="center"><strong>AI × IoT × Agriculture × Robotics</strong><br>From field observations to intelligent action.</p>
